@@ -25,7 +25,6 @@ namespace AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.AddProductToCart
                 UserId = command.In.UserId,
                 ProductId = command.In.ProductId,
                 Quantity  = command.In.Quantity,
-                Price = command.In.Price,
                 IsAvailable = command.In.IsAvailable,
             };
 
@@ -43,8 +42,6 @@ namespace AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.AddProductToCart
         public virtual int ProductId { get; set; }
 
         public int Quantity { get; set; }
-
-        public decimal Price { get; set; }
 
         public bool IsAvailable { get; set; }
 

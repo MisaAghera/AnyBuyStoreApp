@@ -1,4 +1,5 @@
 ﻿using AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.AddProductToCart;
+using AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.DeleteProductFromCart;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,20 +19,19 @@ namespace AnyBuyStore.Controllers
         //    return Ok(await _mediator.Send(new GetAllProductSubcategoriesQuery { ProductCategoryId = CategoryId }));
         //}
 
-        [HttpPost]
-        public async Task<IActionResult> Add(AddProductToCartCommand command)
-        {
-            return Ok(await _mediator.Send(command));
-        }
-
+        //[HttpPost]
+        //public async Task<IActionResult> Add(AddProductToCartCommand command)
+        //{
+        //    return Ok(await _mediator.Send(command));
+        //}
         //[HttpDelete("{id}")]
         //public async Task<IActionResult> Delete(int id)
         //{
-        //    return Ok(await _mediator.Send(new DeleteProductSubcategoryCommand { Id = id }));
+        //    return Ok(await _mediator.Send(new DeleteProductFromCartCommand { Id = id }));
         //}
 
         //[HttpPut("{id}")]
-        //public async Task<IActionResult> Update(int id, UpdateProductSubcategoryCommand command)
+        //public async Task<IActionResult> Update(int id, UpdateProductQuantityInCartCommands command)
         //{
         //    command.In.Id = id;
         //    return Ok(await _mediator.Send(command));

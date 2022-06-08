@@ -12,10 +12,6 @@
     <Folder Include="Handlers\DiscountHandler\Queries\GetProductsByDiscountId\" />
     <Folder Include="Handlers\OrderDetailsHandler\Commands\AddOrderDetails\" />
     <Folder Include="Handlers\OrderDetailsHandler\Commands\UpdateOrderDetails\" />
-    <Folder Include="Handlers\OrderHandler\Commands\AddOrder\" />
-    <Folder Include="Handlers\OrderHandler\Commands\DeleteOrder\" />
-    <Folder Include="Handlers\OrderHandler\Commands\UpdateOrder\" />
-    <Folder Include="Handlers\OrderHandler\Queries\GetOrderById\" />
     <Folder Include="Handlers\ProductHandler\Commands\CreateProduct\" />
     <Folder Include="Handlers\ProductHandler\Commands\DeleteProductById\" />
     <Folder Include="Handlers\ProductHandler\Commands\UpdateProduct\" />
