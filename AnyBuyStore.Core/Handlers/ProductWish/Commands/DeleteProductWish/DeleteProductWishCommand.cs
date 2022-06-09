@@ -1,12 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AnyBuyStore.Data.Data;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnyBuyStore.Core.Handlers.ProductWish.Commands.DeleteProductWish
 {
-    internal class DeleteProductWishCommand
+    public class DeleteProductWishCommand : IRequest<int>
     {
+        public int Id { get; set; }
+        public class DeleteProductWishHandler : IRequestHandler<DeleteProductWishCommand, int>
+        {
+            private readonly DatabaseContext _context;
+            public DeleteProductWishHandler(DatabaseContext context)
+            {
+                _context = context;
+            }
+            public async Task<int> Handle(DeleteProductWishCommand command, CancellationToken cancellationToken)
+            {
+                var deleteData = await _context.ProductWish.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
+                if (deleteData != null)
+                {
+                    _context.ProductWish.Remove(deleteData);
+                    await _context.SaveChangesAsync();
+                    return deleteData.Id;
+                }
+                return 0;
+            }
+        }
     }
 }

@@ -3,7 +3,6 @@ using System;
 using AnyBuyStore.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -12,17 +11,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnyBuyStore.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220607072251_entireDatabase")]
-    partial class entireDatabase
+    [Migration("20220609063821_addDatabase2")]
+    partial class addDatabase2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.5")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("AnyBuyStore.Data.Data.Address", b =>
                 {
@@ -30,8 +27,6 @@ namespace AnyBuyStore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AddressType")
                         .IsRequired()
@@ -49,7 +44,7 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnName("country");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
                     b.Property<string>("House")
@@ -68,7 +63,7 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnName("street");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
                     b.Property<string>("ZipCode")
@@ -88,19 +83,13 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<ulong>("IsActive")
                         .HasColumnType("BIT")
                         .HasColumnName("Is_active");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int")
-                        .HasColumnName("product_id");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -108,7 +97,7 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnName("type");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
                     b.Property<string>("Value")
@@ -128,22 +117,20 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
                     b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("decimal(65,30)")
                         .HasColumnName("total_amount");
 
                     b.Property<decimal?>("TotalDiscount")
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("decimal(65,30)")
                         .HasColumnName("total_discount");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
                     b.Property<int>("UserId")
@@ -164,17 +151,15 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
                     b.Property<int>("DeliveryAddressId")
                         .HasColumnType("int")
                         .HasColumnName("delivery_address_id");
 
-                    b.Property<int>("DiscountId")
+                    b.Property<int?>("DiscountId")
                         .HasColumnType("int")
                         .HasColumnName("discount_id");
 
@@ -196,19 +181,20 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnName("status");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliveryAddressId");
-
-                    b.HasIndex("DiscountId")
+                    b.HasIndex("DeliveryAddressId")
                         .IsUnique();
+
+                    b.HasIndex("DiscountId");
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
                     b.ToTable("OrderDetails");
                 });
@@ -220,15 +206,13 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<string>("Brand")
                         .IsRequired()
                         .HasColumnType("varchar(100)")
                         .HasColumnName("brand");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
                     b.Property<string>("Description")
@@ -242,7 +226,7 @@ namespace AnyBuyStore.Data.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasColumnName("image_url");
 
                     b.Property<string>("Name")
@@ -251,7 +235,7 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnName("name");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("decimal(65,30)")
                         .HasColumnName("price");
 
                     b.Property<int>("ProductSubcategoryId")
@@ -263,14 +247,15 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnName("quantity");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DiscountId");
 
-                    b.HasIndex("ProductSubcategoryId");
+                    b.HasIndex("ProductSubcategoryId")
+                        .IsUnique();
 
                     b.ToTable("Product");
                 });
@@ -282,19 +267,13 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
                     b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("is_available");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("price");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
@@ -305,7 +284,7 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnName("quantity");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
                     b.Property<int>("UserId")
@@ -328,23 +307,21 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("is_active");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasColumnName("name");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
@@ -359,15 +336,13 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasColumnName("name");
 
                     b.Property<int>("ProductCategoryId")
@@ -375,7 +350,7 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnName("Product_category_id");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
@@ -389,23 +364,24 @@ namespace AnyBuyStore.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("int")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("product_id");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id");
 
@@ -423,14 +399,12 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<int>("Age")
                         .HasColumnType("int")
                         .HasColumnName("age");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
                     b.Property<string>("Email")
@@ -453,7 +427,7 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnName("role");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
@@ -475,16 +449,14 @@ namespace AnyBuyStore.Data.Migrations
             modelBuilder.Entity("AnyBuyStore.Data.Data.OrderDetails", b =>
                 {
                     b.HasOne("AnyBuyStore.Data.Data.Address", "DeliveryAddress")
-                        .WithMany()
-                        .HasForeignKey("DeliveryAddressId")
+                        .WithOne("OrderDetails")
+                        .HasForeignKey("AnyBuyStore.Data.Data.OrderDetails", "DeliveryAddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AnyBuyStore.Data.Data.Discount", "Discount")
-                        .WithOne("OrderDetails")
-                        .HasForeignKey("AnyBuyStore.Data.Data.OrderDetails", "DiscountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("DiscountId");
 
                     b.HasOne("AnyBuyStore.Data.Data.Order", "Order")
                         .WithMany("OrderDetails")
@@ -493,8 +465,8 @@ namespace AnyBuyStore.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("AnyBuyStore.Data.Data.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
+                        .WithOne("OrderDetails")
+                        .HasForeignKey("AnyBuyStore.Data.Data.OrderDetails", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -516,8 +488,8 @@ namespace AnyBuyStore.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("AnyBuyStore.Data.Data.ProductSubcategory", "ProductSubcategory")
-                        .WithMany()
-                        .HasForeignKey("ProductSubcategoryId")
+                        .WithOne("Product")
+                        .HasForeignKey("AnyBuyStore.Data.Data.Product", "ProductSubcategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -529,13 +501,13 @@ namespace AnyBuyStore.Data.Migrations
             modelBuilder.Entity("AnyBuyStore.Data.Data.ProductCart", b =>
                 {
                     b.HasOne("AnyBuyStore.Data.Data.Product", "Product")
-                        .WithMany()
+                        .WithMany("ProductCarts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AnyBuyStore.Data.Data.User", "User")
-                        .WithMany()
+                        .WithMany("ProductCarts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -559,7 +531,7 @@ namespace AnyBuyStore.Data.Migrations
             modelBuilder.Entity("AnyBuyStore.Data.Data.ProductWish", b =>
                 {
                     b.HasOne("AnyBuyStore.Data.Data.Product", "Product")
-                        .WithMany()
+                        .WithMany("ProductWishes")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -575,10 +547,15 @@ namespace AnyBuyStore.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AnyBuyStore.Data.Data.Discount", b =>
+            modelBuilder.Entity("AnyBuyStore.Data.Data.Address", b =>
                 {
                     b.Navigation("OrderDetails")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AnyBuyStore.Data.Data.Discount", b =>
+                {
+                    b.Navigation("OrderDetails");
 
                     b.Navigation("Products");
                 });
@@ -588,14 +565,32 @@ namespace AnyBuyStore.Data.Migrations
                     b.Navigation("OrderDetails");
                 });
 
+            modelBuilder.Entity("AnyBuyStore.Data.Data.Product", b =>
+                {
+                    b.Navigation("OrderDetails")
+                        .IsRequired();
+
+                    b.Navigation("ProductCarts");
+
+                    b.Navigation("ProductWishes");
+                });
+
             modelBuilder.Entity("AnyBuyStore.Data.Data.ProductCategory", b =>
                 {
                     b.Navigation("ProductSubcategories");
                 });
 
+            modelBuilder.Entity("AnyBuyStore.Data.Data.ProductSubcategory", b =>
+                {
+                    b.Navigation("Product")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("AnyBuyStore.Data.Data.User", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("ProductCarts");
 
                     b.Navigation("ProductWishes");
                 });

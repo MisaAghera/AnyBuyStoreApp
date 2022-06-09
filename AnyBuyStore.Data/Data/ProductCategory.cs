@@ -21,7 +21,6 @@ namespace AnyBuyStore.Data.Data
         [Column("is_active")]
         public bool IsActive { get; set; }
 
-        public virtual ICollection<ProductSubcategory> ProductSubcategories { get; set; } = new HashSet<ProductSubcategory>();
-
+        public virtual ICollection<ProductSubcategory> ProductSubcategories { get; set; }
     }
 }

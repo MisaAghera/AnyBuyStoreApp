@@ -31,9 +31,11 @@ namespace AnyBuyStore.Data.Data
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
 
-        public virtual ICollection<ProductWish> ProductWishes { get; set; } = new HashSet<ProductWish>();
-        public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
-        
+        public virtual Address? Address { get; set; }
+
+        public virtual ICollection<ProductWish>? ProductWishes { get; set; }
+        public virtual ICollection<Order>? Orders { get; set; }
+        public virtual ICollection<ProductCart>?  ProductCarts { get; set; }
 
     }
 }

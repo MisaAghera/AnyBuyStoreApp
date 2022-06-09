@@ -9,6 +9,15 @@ namespace AnyBuyStore.Data.Data
         [Column("id")]
         public int Id { get; set; }
 
+        [Display(Name = "OrderDetails")]
+        [Column("orderDetails_id")]
+        public virtual int OrderDetailsId { get; set; }
+
+        [Display(Name = "User")]
+        [Column("user_id")]
+        public virtual int? UserId { get; set; }
+
+
         [Column("house", TypeName = "varchar(200)")]
         public string House { get; set; } = string.Empty;
         
@@ -35,6 +44,16 @@ namespace AnyBuyStore.Data.Data
 
         [Column("updated_at")]
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+
+
+
+        [ForeignKey("OrderDetailsId")]
+        public virtual OrderDetails OrderDetails { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User? User { get; set; }
+
+
 
     }
 }

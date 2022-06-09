@@ -18,7 +18,7 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllOrders
         }
         public async Task<IEnumerable<OrderModel>> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
         {
-            var data = await _context.OrderDetails.ToListAsync();
+            var data = await _context.Order.ToListAsync();
 
             var ModelList = new List<OrderModel>();
 
@@ -29,12 +29,16 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllOrders
                     {
                         ModelList.Add(new OrderModel()
                         {
-                            //logic hereeeeeeeeee
+                            Id = vals.Id,
+                            UserId = vals.UserId,
+                            TotalAmount = vals.TotalAmount,
+                            TotalDiscount = vals.TotalDiscount
                         });
                     }
                 }
 
             }
+
 
             return ModelList;
         }
@@ -42,8 +46,14 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllOrders
     }
     public class OrderModel
     {
+      
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+
+        public  int UserId { get; set; }
+
+        public decimal TotalAmount { get; set; }
+
+        public decimal? TotalDiscount { get; set; }
     }
 
 }

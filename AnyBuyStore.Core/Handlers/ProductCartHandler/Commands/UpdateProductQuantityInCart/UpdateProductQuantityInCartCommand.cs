@@ -6,12 +6,12 @@ namespace AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.UpdateProductQua
 {
     public class UpdateProductQuantityInCartCommand : IRequest<int>
     {
-        public UpdateProductQuantityInCartCommand(ProductCartModel @in)
+        public UpdateProductQuantityInCartCommand(UpdateProductCartModel @in)
         {
             In = @in;
 
         }
-        public ProductCartModel In { get; set; }
+        public UpdateProductCartModel In { get; set; }
     }
 
     public class UpdateProductCategoryHandler : IRequestHandler<UpdateProductQuantityInCartCommand, int>
@@ -30,6 +30,7 @@ namespace AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.UpdateProductQua
             }
             else
             {
+                UpdateData.Id = command.In.Id;
                 UpdateData.UserId = command.In.UserId;
                 UpdateData.ProductId = command.In.ProductId;
                 UpdateData.Quantity = command.In.Quantity;
@@ -43,7 +44,7 @@ namespace AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.UpdateProductQua
         }
     }
 
-    public class ProductCartModel
+    public class UpdateProductCartModel
     {
         public int Id { get; set; }
 

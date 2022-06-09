@@ -1,12 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace AnyBuyStore.Core.Handlers.OrderHandler.Commands.UpdateOrder
+using AnyBuyStore.Data.Data;
+using MediatR;
+
+namespace AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.UpdateProducCategory
 {
-    internal class UpdateOrderCommand
+    public class UpdateOrderCommand : IRequest<int>
     {
+        public UpdateOrderCommand(UpdateOrderModel @in)
+        {
+            In = @in;
+
+        }
+        public UpdateOrderModel In { get; set; }
     }
+
+    public class UpdateOrderHandler : IRequestHandler<UpdateOrderCommand, int>
+    {
+        private readonly DatabaseContext _context;
+        public UpdateOrderHandler(DatabaseContext context)
+        {
+            _context = context;
+        }
+        public async Task<int> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
+        {
+            var UpdateData = _context.Order.Where(a => a.Id == command.In.Id).FirstOrDefault();
+            if (UpdateData == null)
+            {
+                return default;
+            }
+            else
+            {
+                UpdateData.Id = command.In.Id;
+                UpdateData.UserId = command.In.UserId;
+                UpdateData.TotalAmount = command.In.TotalAmount;
+                UpdateData.TotalDiscount = command.In.TotalDiscount;
+              
+
+                UpdateData.UpdatedAt = DateTime.Now;
+
+
+                await _context.SaveChangesAsync();
+                return UpdateData.Id;
+            }
+        }
+    }
+    public class UpdateOrderModel
+    {
+
+        public int Id { get; set; }
+
+        public int UserId { get; set; }
+
+        public decimal TotalAmount { get; set; }
+
+        public decimal? TotalDiscount { get; set; }
+    }
+
 }
+
+
+
+

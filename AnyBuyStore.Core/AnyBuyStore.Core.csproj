@@ -7,15 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Handlers\DiscountHandler\Commands\AddDiscount\" />
-    <Folder Include="Handlers\DiscountHandler\Commands\UpdateDiscount\" />
-    <Folder Include="Handlers\DiscountHandler\Queries\GetProductsByDiscountId\" />
-    <Folder Include="Handlers\OrderDetailsHandler\Commands\AddOrderDetails\" />
-    <Folder Include="Handlers\OrderDetailsHandler\Commands\UpdateOrderDetails\" />
-    <Folder Include="Handlers\ProductHandler\Commands\CreateProduct\" />
-    <Folder Include="Handlers\ProductHandler\Commands\DeleteProductById\" />
-    <Folder Include="Handlers\ProductHandler\Commands\UpdateProduct\" />
-    <Folder Include="Handlers\ProductHandler\Queries\GetProductById\" />
     <Folder Include="Handlers\ProductSubCategoryHandler\Queries\GetAllProductSubCategories\" />
   </ItemGroup>
 

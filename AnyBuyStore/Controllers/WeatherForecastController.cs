@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AnyBuyStore.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
+   
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

@@ -10,21 +10,18 @@ namespace AnyBuyStore.Data.Data
         [Column("id")]
         public int Id { get; set; }
 
-        [Column("product_id")]
         [Display(Name = "Product")]
+        [Column("product_id")]
         public virtual int ProductId { get; set; }
 
-        [Column("delivery_address_id")]
-        [Display(Name = "Address")]
-        public virtual int DeliveryAddressId { get; set; }
 
-        [Column("order_id")]
         [Display(Name = "Order")]
+        [Column("order_id")]
         public virtual int OrderId { get; set; }
 
-        [Column("discount_id")]
         [Display(Name = "Discount")]
-        public virtual int DiscountId { get; set; }
+        [Column("discount_id")]
+        public virtual int? DiscountId { get; set; }
 
         [Column("quantity")]
         public int Quantity { get; set; }
@@ -39,16 +36,18 @@ namespace AnyBuyStore.Data.Data
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         [ForeignKey("ProductId")]
-        public virtual Product Product { get; set; } = new Product();
-
-        [ForeignKey("DeliveryAddressId")]
-        public virtual Address DeliveryAddress { get; set; } = new Address();
+        public virtual Product Product { get; set; }
 
         [ForeignKey("OrderId")]
-        public virtual Order Order{ get; set; } = new Order();
+        public virtual Order Order{ get; set; }
 
         [ForeignKey("DiscountId")]
+
+
+
         public virtual Discount? Discount { get; set; }
+
+        public virtual Address Address { get; set; }
 
     }
 }

@@ -5,12 +5,12 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Commands.UpdateUser
 {
     public class UpdateUserCommand : IRequest<int>
     {
-        public UpdateUserCommand(UserModel @in)
+        public UpdateUserCommand(UpdateUserModel @in)
         {
             In = @in;
 
         }
-        public UserModel In { get; set; }
+        public UpdateUserModel In { get; set; }
     }
 
     public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, int>
@@ -43,7 +43,7 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Commands.UpdateUser
             }
         }
     }
-    public class UserModel
+    public class UpdateUserModel
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

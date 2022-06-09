@@ -1,41 +1,43 @@
 ﻿using AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.AddProductToCart;
 using AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.DeleteProductFromCart;
+using AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.UpdateProductQuantityInCart;
+using AnyBuyStore.Core.Handlers.ProductCartHandler.Queries.GetAllCartProductsById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnyBuyStore.Controllers
 {
-    [ApiController]
-    [Route("[controller]/[action]")]
+   
     public class ProductCartController : BaseApiController
     {
         public ProductCartController(ILogger<BaseApiController> logger, IMediator mediator) : base(logger, mediator)
         {
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetAll(int CategoryId)
-        //{
-        //    return Ok(await _mediator.Send(new GetAllProductSubcategoriesQuery { ProductCategoryId = CategoryId }));
-        //}
+        [HttpGet]
+        public async Task<IActionResult> GetAll(int UserId, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new GetAllCartProductByIdQuery { UserId = UserId }, cancellationToken));
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Add(AddProductToCartCommand command)
-        //{
-        //    return Ok(await _mediator.Send(command));
-        //}
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    return Ok(await _mediator.Send(new DeleteProductFromCartCommand { Id = id }));
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Add(AddProductToCartCommand command, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(command, cancellationToken));
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new DeleteProductFromCartCommand { Id = id }, cancellationToken));
+        }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Update(int id, UpdateProductQuantityInCartCommands command)
-        //{
-        //    command.In.Id = id;
-        //    return Ok(await _mediator.Send(command));
-        //}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UpdateProductQuantityInCartCommand command, CancellationToken cancellationToken)
+        {
+            command.In.Id = id;
+            return Ok(await _mediator.Send(command, cancellationToken));
+        }
+      
 
     }
 

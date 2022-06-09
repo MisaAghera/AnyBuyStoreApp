@@ -9,12 +9,12 @@ namespace AnyBuyStore.Data.Data
         [Column("id")]
         public int Id { get; set; }
 
-        [Column("discount_id")]
         [Display(Name = "Discount")]
+        [Column("discount_id")]
         public virtual int? DiscountId { get; set; }
 
-        [Column("product_subcategory_id")]
         [Display(Name = "ProductSubcategory")]
+        [Column("product_subcategory_id")]
         public virtual int ProductSubcategoryId { get; set; }
 
         [Column("name",TypeName = "varchar(100)")]
@@ -46,12 +46,19 @@ namespace AnyBuyStore.Data.Data
         [Column("updated_at")]
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
+
         [ForeignKey("ProductSubcategoryId")]
-        public virtual ProductSubcategory ProductSubcategory { get; set; } = new ProductSubcategory();
+        public virtual ProductSubcategory ProductSubcategory { get; set; } 
 
         
         [ForeignKey("DiscountId")]
         public virtual Discount Discount { get; set; } = new Discount();
+
+
+        public virtual OrderDetails OrderDetails { get; set; }
+        public virtual ICollection<ProductWish> ProductWishes { get; set; } 
+        public virtual ICollection<ProductCart> ProductCarts { get; set; }
+
 
     }
 }

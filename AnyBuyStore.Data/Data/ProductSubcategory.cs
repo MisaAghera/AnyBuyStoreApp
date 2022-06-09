@@ -8,8 +8,8 @@ namespace AnyBuyStore.Data.Data
         [Column("id")]
         public int Id { get; set; }
 
-        [Column("Product_category_id")]
         [Display(Name = "ProductCategory")]
+        [Column("Product_category_id")]
         public virtual int ProductCategoryId { get; set; }
 
         [Column("name")]
@@ -24,8 +24,10 @@ namespace AnyBuyStore.Data.Data
 
 
         [ForeignKey("ProductCategoryId")]
-        public  virtual ProductCategory ProductCategory { get; set; } = new ProductCategory();
+        public  virtual ProductCategory ProductCategory { get; set; }
 
 
+
+        public virtual Product Product { get; set; } 
     }
 }

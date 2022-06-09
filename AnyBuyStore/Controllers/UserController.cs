@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AnyBuyStore.Controllers
 {
-    [ApiController]
-    [Route("[controller]/[action]")]
+    
     public class UserController : BaseApiController
     {
         public UserController(ILogger<BaseApiController> logger, IMediator mediator) : base(logger, mediator)
@@ -18,29 +17,29 @@ namespace AnyBuyStore.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new GetAllUsersQuery() ));
+            return Ok(await _mediator.Send(new GetAllUsersQuery(), cancellationToken));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddUserCommand command)
+        public async Task<IActionResult> Add(AddUserCommand command, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(command));
+            return Ok(await _mediator.Send(command, cancellationToken));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new DeleteUserCommand { Id = id }));
+            return Ok(await _mediator.Send(new DeleteUserCommand { Id = id }, cancellationToken));
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UpdateUserCommand command, CancellationToken cancellationToken)
+        {
+            command.In.Id = id;
+            return Ok(await _mediator.Send(command, cancellationToken));
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Update(int id, UpdateUserCommand command)
-        //{
-        //    command.In.Id = id;
-        //    return Ok(await _mediator.Send(command));
-        //}
 
     }
 

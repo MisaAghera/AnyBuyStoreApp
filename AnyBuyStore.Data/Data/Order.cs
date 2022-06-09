@@ -10,8 +10,8 @@ namespace AnyBuyStore.Data.Data
         [Column("id")]
         public int Id { get; set; }
         
-        [Column("user_id")]
         [Display(Name = "User")]
+        [Column("user_id")]
         public virtual int UserId { get; set; }
         
         [Column("total_amount")]
@@ -27,8 +27,13 @@ namespace AnyBuyStore.Data.Data
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
 
+       
         [ForeignKey("UserId")]
-        public virtual User User { get; set; } = new User();
-        public virtual ICollection<OrderDetails> OrderDetails { get; set; } = new List<OrderDetails>();
+        public virtual User User { get; set; }
+
+
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+
+
     }
 }

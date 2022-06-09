@@ -22,11 +22,17 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetai
             {
                 if (data.Any() == true)
                 {
-                    foreach (var product in data)
+                    foreach (var vals in data)
                     {
                         Products.Add(new OrderDetailsModel()
                         {
-                         //-------------------logic here   
+                            Id = vals.Id,
+                            ProductId = vals.ProductId,
+                            OrderId = vals.OrderId,
+                            DiscountId = vals.DiscountId,
+                            Quantity = vals.Quantity,
+                            Status = vals.Status,
+
                         });
                     }
                 }
@@ -41,11 +47,10 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetai
         public int Id { get; set; }
         public  int ProductId { get; set; }
 
-        public  int DeliveryAddressId { get; set; }
 
         public  int OrderId { get; set; }
 
-        public  int DiscountId { get; set; }
+        public  int? DiscountId { get; set; }
 
         public int Quantity { get; set; }
 

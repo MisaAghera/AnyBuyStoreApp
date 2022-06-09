@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AnyBuyStore.Controllers
 {
-    [ApiController]
-    [Route("[controller]/[action]")]
+    
     public class ProductSubcategoryController : BaseApiController
     {
         public ProductSubcategoryController(ILogger<BaseApiController> logger, IMediator mediator) : base(logger, mediator)
@@ -16,28 +15,28 @@ namespace AnyBuyStore.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll(int CategoryId)
+        public async Task<IActionResult> GetAll(int CategoryId, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new GetAllProductSubcategoriesQuery { ProductCategoryId = CategoryId }));
+            return Ok(await _mediator.Send(new GetAllProductSubcategoriesQuery { ProductCategoryId = CategoryId }, cancellationToken));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddProductSubcategoryCommand command)
+        public async Task<IActionResult> Add(AddProductSubcategoryCommand command, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(command));
+            return Ok(await _mediator.Send(command, cancellationToken));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new DeleteProductSubcategoryCommand { Id = id }));
+            return Ok(await _mediator.Send(new DeleteProductSubcategoryCommand { Id = id }, cancellationToken));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, UpdateProductSubcategoryCommand command)
+        public async Task<IActionResult> Update(int id, UpdateProductSubcategoryCommand command, CancellationToken cancellationToken)
         {
             command.In.Id = id;
-            return Ok(await _mediator.Send(command));
+            return Ok(await _mediator.Send(command, cancellationToken));
         }
 
     }

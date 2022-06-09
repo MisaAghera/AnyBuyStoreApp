@@ -8,19 +8,17 @@ namespace AnyBuyStore.Data.Data
         [Column("id")]
         public int Id { get; set; }
 
-        [Column("user_id")]
         [Display(Name = "User")]
+        [Column("user_id")]
         public virtual int UserId { get; set; }
 
-        [Column("product_id")]
         [Display(Name = "Product")]
+        [Column("product_id")]
         public virtual int ProductId { get; set; }
 
         [Column("quantity")]
         public  int Quantity { get; set; }
 
-        [Column("price")]
-        public decimal Price { get; set; }
 
         [Column("is_available")]
         public bool IsAvailable { get; set; }
@@ -32,12 +30,10 @@ namespace AnyBuyStore.Data.Data
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         [ForeignKey("UserId")]
-        public virtual User User { get; set; } = new User();
+        public virtual User User { get; set; }
 
         [ForeignKey("ProductId")]
-        //public virtual Product Product { get; set; }
-        public virtual Product Product { get; set; } = new Product();
-
+        public virtual Product Product { get; set; }
 
     }
 }
