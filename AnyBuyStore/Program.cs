@@ -4,6 +4,7 @@ using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Queries.GetAllProductCate
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts;
 using AnyBuyStore.Data.Data;
 using AnyBuyStore.Data.Models;
+using AnyBuyStore.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -21,8 +22,8 @@ builder.Services.AddDbContext<DatabaseContext>(item => item.UseSqlServer(builder
 builder.Services.AddIdentity<User, IdentityRole<int>>()
                .AddEntityFrameworkStores<DatabaseContext>()
                .AddDefaultTokenProviders();
-        //       .AddUserStore<UserStore<ApplicationUser, ApplicationRole, DatabaseContext, int>>()
-        //.AddRoleStore<RoleStore<ApplicationRole, DatabaseContext, int>>();
+
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 // Add services to the container.
 builder.Services.AddMediatR(
@@ -42,12 +43,18 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 
+
+//custom middleware for exception handling in asp net core request pipeline
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+//app.UseExceptionHandler("/error");
 app.UseAuthorization();
 
 app.MapControllers();
