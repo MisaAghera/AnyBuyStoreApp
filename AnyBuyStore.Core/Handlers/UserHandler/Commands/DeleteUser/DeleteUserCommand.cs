@@ -1,4 +1,5 @@
 ﻿using AnyBuyStore.Data.Data;
+using AnyBuyStore.Data.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,10 +17,10 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Commands.DeleteUser
             }
             public async Task<int> Handle(DeleteUserCommand command, CancellationToken cancellationToken)
             {
-                var deleteData = await _context.User.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
+                var deleteData = await _context.Users.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
                 if (deleteData != null)
                 {
-                    _context.User.Remove(deleteData);
+                    _context.Users.Remove(deleteData);
                     await _context.SaveChangesAsync();
                     return deleteData.Id;
                 }

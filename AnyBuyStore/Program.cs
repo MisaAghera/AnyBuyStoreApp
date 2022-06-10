@@ -3,9 +3,10 @@ using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.AddProductCatego
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Queries.GetAllProductCategories;
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts;
 using AnyBuyStore.Data.Data;
+using AnyBuyStore.Data.Models;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,13 @@ var builder = WebApplication.CreateBuilder(args);
 //});
 
 builder.Services.AddDbContext<DatabaseContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("DefaultDatabase")));
+
+builder.Services.AddIdentity<User, IdentityRole<int>>()
+               .AddEntityFrameworkStores<DatabaseContext>()
+               .AddDefaultTokenProviders();
+        //       .AddUserStore<UserStore<ApplicationUser, ApplicationRole, DatabaseContext, int>>()
+        //.AddRoleStore<RoleStore<ApplicationRole, DatabaseContext, int>>();
+
 // Add services to the container.
 builder.Services.AddMediatR(
     typeof(GetAllProductsRequest).Assembly,

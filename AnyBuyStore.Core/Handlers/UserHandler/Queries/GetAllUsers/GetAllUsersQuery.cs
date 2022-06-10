@@ -16,7 +16,7 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Queries.GetAllUsers
         }
         public async Task<IEnumerable<UserModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            var data = await _context.User.ToListAsync();
+            var data = await _context.Users.ToListAsync();
 
             var users = new List<UserModel>();
 
@@ -28,11 +28,10 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Queries.GetAllUsers
                         users.Add(new UserModel()
                         {
                             Id = user.Id,
-                            Name = user.Name,
+                            UserName = user.UserName,
                             Email = user.Email,
                             Age = user.Age,
                             Gender = user.Gender,
-                            Role = user.Role,
                         });
                     }
                 }
@@ -44,15 +43,14 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Queries.GetAllUsers
     {
         public int Id { get; set; }
 
-        public string Name { get; set; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
 
         public string Email { get; set; } = string.Empty;
 
-        public int Age { get; set; }
+        public int? Age { get; set; }
 
         public string? Gender { get; set; }
 
-        public string Role { get; set; } = string.Empty;
     }
 
 }
