@@ -52,7 +52,7 @@ namespace AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.UpdateProduc
 
         public int UserId { get; set; }
 
-        public decimal TotalAmount { get; set; }
+        public decimal? TotalAmount { get; set; }
 
         public decimal? TotalDiscount { get; set; }
     }

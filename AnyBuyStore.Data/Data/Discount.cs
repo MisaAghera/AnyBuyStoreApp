@@ -10,7 +10,7 @@ namespace AnyBuyStore.Data.Data
         public int Id { get; set; }
 
         [Column("type",TypeName = "varchar(100)")]
-        public string Type { get; set; }
+        public string Type { get; set; } = String.Empty;
 
         [Column("value",TypeName = "varchar(100)")]
         public float Value { get; set; }
@@ -24,7 +24,7 @@ namespace AnyBuyStore.Data.Data
         [Column("Is_active", TypeName = "BIT")]
         public bool IsActive { get; set; }
    
-        public virtual ICollection<Product> Products { get; set; } 
+        public virtual ICollection<Product>? Products { get; set; } 
         public virtual ICollection<OrderDetails> OrderDetails { get; set; } 
     }
 

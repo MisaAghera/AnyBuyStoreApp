@@ -28,6 +28,6 @@ namespace AnyBuyStore.Data.Data
 
 
 
-        public virtual Product Product { get; set; } 
+        public virtual ICollection<Product> Product { get; set; } 
     }
 }

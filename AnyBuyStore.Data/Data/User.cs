@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AnyBuyStore.Data.Data
 {
-    public class User
+    public class User 
     {
         [Key]
         [Column("id")]
@@ -35,7 +37,7 @@ namespace AnyBuyStore.Data.Data
 
         public virtual ICollection<ProductWish>? ProductWishes { get; set; }
         public virtual ICollection<Order>? Orders { get; set; }
-        public virtual ICollection<ProductCart>?  ProductCarts { get; set; }
+        public virtual ICollection<ProductCart>? ProductCarts { get; set; }
 
     }
 }

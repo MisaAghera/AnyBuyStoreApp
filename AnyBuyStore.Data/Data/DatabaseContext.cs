@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AnyBuyStore.Data.Data
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {

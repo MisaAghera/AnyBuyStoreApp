@@ -29,6 +29,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.UpdateProduct
                 DiscountId = command.productModel.DiscountId,
                 ProductSubcategoryId = command.productModel.ProductSubcategoryId,
                 Name = command.productModel.Name,
+                Price = command.productModel.Price, 
                 Description = command.productModel.Description,
                 Brand = command.productModel.Brand,
                 ImageUrl = command.productModel.ImageUrl,

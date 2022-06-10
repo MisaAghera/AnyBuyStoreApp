@@ -51,7 +51,7 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllOrders
 
         public  int UserId { get; set; }
 
-        public decimal TotalAmount { get; set; }
+        public decimal? TotalAmount { get; set; }
 
         public decimal? TotalDiscount { get; set; }
     }

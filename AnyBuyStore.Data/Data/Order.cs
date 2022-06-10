@@ -15,7 +15,7 @@ namespace AnyBuyStore.Data.Data
         public virtual int UserId { get; set; }
         
         [Column("total_amount")]
-        public decimal TotalAmount { get; set; }
+        public decimal? TotalAmount { get; set; }
         
         [Column("total_discount")]
         public decimal? TotalDiscount { get; set; }
