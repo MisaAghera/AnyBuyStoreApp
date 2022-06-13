@@ -21,8 +21,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById
             public async Task<ProductModel> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
             {
                 var data = await _context.Product.Where(a => a.Id == request.Id).FirstOrDefaultAsync();
-                if(data!= null)
-                {
+              
                     var product = new ProductModel()
                     {
                         Id = data.Id,
@@ -36,8 +35,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById
                         Quantity = data.Quantity
                     };
                     return product;
-                }
-                return null;
+               
                            
             }
         }

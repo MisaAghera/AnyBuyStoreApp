@@ -1,26 +1,56 @@
-﻿using AnyBuyStore.shared.Exceptions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Text.Json;
+using System.Threading.Tasks;
+using API.Errors;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Diagnostics;
 
-namespace AnyBuyStore.Middleware
+namespace API.Middleware
 {
-    public class ExceptionHandlingMiddleware :IMiddleware
+    public class ExceptionMiddleware
     {
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionMiddleware> _logger;
+        private readonly IHostEnvironment _env;
+
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger,
+            IHostEnvironment env
+            )
+        {
+            _next = next;
+            _logger = logger;
+            _env = env;
+        }
+
+        public async Task InvokeAsync(HttpContext context)
         {
             try
             {
-                await next(context);
+                await _next(context);
             }
-            catch (DomainNotFoundException e)
+            catch (Exception ex)
             {
+               // _logger.LogError($"the path is : {ex.Source} || exception is:{ex.Message}");
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-               await  context.Response.WriteAsync(e.Message);                    
-            }
-            catch(Exception e)
-            {
-                context.Response.StatusCode = 500;
-                await context.Response.WriteAsync(e.Message);
+                var response = _env.IsDevelopment()
+                    ? new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString())
+                    : new ApiException((int)HttpStatusCode.InternalServerError);            
+
+                var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+
+                var json = JsonSerializer.Serialize(response, options);
+
+
+                _logger.LogError(json.ToString());
+
+                await context.Response.WriteAsync(json);
             }
         }
     }

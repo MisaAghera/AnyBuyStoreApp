@@ -1,8 +1,8 @@
-﻿
-using AnyBuyStore.Core.Handlers.AddressHandler.Commands.AddAddress;
+﻿using AnyBuyStore.Core.Handlers.AddressHandler.Commands.AddAddress;
 using AnyBuyStore.Core.Handlers.AddressHandler.Commands.DeleteAddress;
 using AnyBuyStore.Core.Handlers.AddressHandler.Commands.UpdateAddress;
 using AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAddressByOrderIdQuery;
+using API.Errors;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace AnyBuyStore.Controllers
@@ -17,7 +17,10 @@ namespace AnyBuyStore.Controllers
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetById(int Id, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new GetAddressByOrderIdQuery(){ OrderDetailsId = Id }, cancellationToken));
+
+            var result = await _mediator.Send(new GetAddressByOrderIdQuery() { OrderDetailsId = Id }, cancellationToken);
+            if (result == null) return NotFound(new ApiResponse(404));
+            return Ok(result);
         }
 
         [HttpPost]

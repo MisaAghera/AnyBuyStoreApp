@@ -44,7 +44,10 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAddress
                         }
                     }
                 }
-
+                if (getData.Count == 0)
+                {
+                    return null;
+                }
                 return getData;
             }
         }

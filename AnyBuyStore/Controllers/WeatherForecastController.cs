@@ -1,5 +1,5 @@
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts;
-using AnyBuyStore.shared.Exceptions;
+
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 //using Services.Cars.Queries.GetAllCars;

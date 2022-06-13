@@ -4,12 +4,23 @@ using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Queries.GetAllProductCate
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts;
 using AnyBuyStore.Data.Data;
 using AnyBuyStore.Data.Models;
-using AnyBuyStore.Middleware;
+//using AnyBuyStore.Middleware;
+using API.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NLog.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.ConfigureLogging((hostingContext,logging) =>
+{
+    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+    logging.AddConsole();
+    logging.AddDebug();
+    logging.AddEventSourceLogger();
+    logging.AddNLog();
+});
+
 
 //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 //builder.Services.AddDbContext<DatabaseContext>(options =>
@@ -23,7 +34,7 @@ builder.Services.AddIdentity<User, IdentityRole<int>>()
                .AddEntityFrameworkStores<DatabaseContext>()
                .AddDefaultTokenProviders();
 
-builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+//builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 // Add services to the container.
 builder.Services.AddMediatR(
@@ -52,12 +63,12 @@ app.UseHttpsRedirection();
 
 
 //custom middleware for exception handling in asp net core request pipeline
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+//app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.UseMiddleware<ExceptionMiddleware>();
+
 
 //app.UseExceptionHandler("/error");
-app.UseAuthorization();
-
-app.MapControllers();
 app.UseCors(builder =>
 {
     builder
@@ -65,4 +76,9 @@ app.UseCors(builder =>
     .AllowAnyMethod()
     .AllowAnyHeader();
 });
+app.UseAuthorization();
+
+
+app.MapControllers();
+
 app.Run();
