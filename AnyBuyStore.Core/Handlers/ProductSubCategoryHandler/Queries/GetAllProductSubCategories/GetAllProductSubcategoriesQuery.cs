@@ -22,8 +22,7 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAllProd
                 var getData = new List<ProductSubcategoryModel>();
 
                 {
-                    if (data.Any() == true)
-                    {
+                   
                         foreach (var vals in data)
                         {
                             getData.Add(new ProductSubcategoryModel()
@@ -33,7 +32,7 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAllProd
                                 Name = vals.Name
                             });
                         }
-                    }
+                    
                 }
 
                 return getData;

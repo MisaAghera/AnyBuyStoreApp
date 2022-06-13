@@ -41,26 +41,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.UpdateProduct
             await _context.SaveChangesAsync();
             return true;
         }
-        //var UpdateData = _context.Product.Where(a => a.Id == command.In.Id).FirstOrDefault();
-        //if (UpdateData == null)
-        //{
-        //    return default;
-        //}
-        //else
-        //{
-        //    UpdateData.Id = command.In.Id;
-        //    UpdateData.DiscountId = command.In.DiscountId;
-        //    UpdateData.ProductSubcategoryId = command.In.ProductSubcategoryId;
-        //    UpdateData.Name = command.In.Name;
-        //    UpdateData.Description = command.In.Description;
-        //    UpdateData.Brand = command.In.Brand;
-        //    UpdateData.ImageUrl = command.In.ImageUrl;
-        //    UpdateData.Quantity = command.In.Quantity;
-        //    UpdateData.UpdatedAt = DateTime.Now;
-
-        //    await _context.SaveChangesAsync();
-        //    return UpdateData.Id;
-        //}
+       
     }
     public class UpdateProductModel
     {

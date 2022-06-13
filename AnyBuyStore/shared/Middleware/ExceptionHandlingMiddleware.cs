@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
-using System.Threading.Tasks;
 using API.Errors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Diagnostics;
+
 
 namespace API.Middleware
 {
@@ -42,11 +35,9 @@ namespace API.Middleware
                 var response = _env.IsDevelopment()
                     ? new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString())
                     : new ApiException((int)HttpStatusCode.InternalServerError);            
-
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
                 var json = JsonSerializer.Serialize(response, options);
-
 
                 _logger.LogError(json.ToString());
 

@@ -22,9 +22,7 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAddress
 
                 var getData = new List<AddressModel>();
 
-                {
-                    if (data.Any() == true)
-                    {
+                {                  
                         foreach (var vals in data)
                         {
                             getData.Add(new AddressModel()
@@ -43,11 +41,8 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAddress
                             });
                         }
                     }
-                }
-                if (getData.Count == 0)
-                {
-                    return null;
-                }
+                
+            
                 return getData;
             }
         }

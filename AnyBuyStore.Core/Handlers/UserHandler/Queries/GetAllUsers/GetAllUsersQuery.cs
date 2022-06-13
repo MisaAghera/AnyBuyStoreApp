@@ -21,8 +21,7 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Queries.GetAllUsers
             var users = new List<UserModel>();
 
             {
-                if (data.Any() == true)
-                {
+                
                     foreach (var user in data)
                     {
                         users.Add(new UserModel()
@@ -34,7 +33,7 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Queries.GetAllUsers
                             Gender = user.Gender,
                         });
                     }
-                }
+                
             }
             return users;
         }

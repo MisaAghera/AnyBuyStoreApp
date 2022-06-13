@@ -24,12 +24,7 @@ namespace AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.UpdateProductQua
         public async Task<int> Handle(UpdateProductQuantityInCartCommand command, CancellationToken cancellationToken)
         {
             var UpdateData = _context.ProductCart.Where(a => a.Id == command.In.Id).FirstOrDefault();
-            if (UpdateData == null)
-            {
-                return default;
-            }
-            else
-            {
+          
                 UpdateData.Id = command.In.Id;
                 UpdateData.UserId = command.In.UserId;
                 UpdateData.ProductId = command.In.ProductId;
@@ -40,7 +35,7 @@ namespace AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.UpdateProductQua
 
                 await _context.SaveChangesAsync();
                 return UpdateData.Id;
-            }
+            
         }
     }
 

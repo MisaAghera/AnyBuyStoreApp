@@ -24,8 +24,7 @@ namespace AnyBuyStore.Core.Handlers.ProductCartHandler.Queries.GetAllCartProduct
                 var getData = new List<ProductCartModel>();
 
                 {
-                    if (data.Any() == true)
-                    {
+                   
                         foreach (var vals in data)
                         {
                             getData.Add(new ProductCartModel()
@@ -36,7 +35,7 @@ namespace AnyBuyStore.Core.Handlers.ProductCartHandler.Queries.GetAllCartProduct
                                 IsAvailable = vals.IsAvailable,
                             });
                         }
-                    }
+                    
                 }
 
                 return getData;

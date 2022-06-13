@@ -25,10 +25,7 @@ namespace AnyBuyStore.Core.Handlers.DiscountHandler.Queries.GetProductsByDiscoun
 
 
                 var Products = new List<ProductModel>();
-
-
-                if (data.Any() == true)
-                {
+              
                     foreach (var product in data)
                     {
                         Products.Add(new ProductModel()
@@ -44,7 +41,7 @@ namespace AnyBuyStore.Core.Handlers.DiscountHandler.Queries.GetProductsByDiscoun
                             Quantity = product.Quantity
                         });
                     }
-                }
+               
                 return Products;
             }
         }

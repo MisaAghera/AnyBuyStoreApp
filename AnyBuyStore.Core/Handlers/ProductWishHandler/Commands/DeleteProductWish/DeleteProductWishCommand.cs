@@ -17,13 +17,11 @@ namespace AnyBuyStore.Core.Handlers.ProductWish.Commands.DeleteProductWish
             public async Task<int> Handle(DeleteProductWishCommand command, CancellationToken cancellationToken)
             {
                 var deleteData = await _context.ProductWish.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
-                if (deleteData != null)
-                {
+          
                     _context.ProductWish.Remove(deleteData);
                     await _context.SaveChangesAsync();
                     return deleteData.Id;
-                }
-                return 0;
+          
             }
         }
     }

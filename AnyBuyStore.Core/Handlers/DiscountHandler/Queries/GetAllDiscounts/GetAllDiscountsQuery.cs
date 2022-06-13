@@ -22,8 +22,7 @@ namespace AnyBuyStore.Core.Handlers.DiscountHandler.Queries.GetAllDiscounts
             var Products = new List<DiscountModel>();
 
             {
-                if (data.Any() == true)
-                {
+               
                     foreach (var product in data)
                     {
                         Products.Add(new DiscountModel()
@@ -35,7 +34,7 @@ namespace AnyBuyStore.Core.Handlers.DiscountHandler.Queries.GetAllDiscounts
 
                         });
                     }
-                }
+                
 
             }
 

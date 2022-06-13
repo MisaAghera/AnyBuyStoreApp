@@ -22,8 +22,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById
             {
                 var vals = await _context.Order.Where(a => a.Id == request.Id).FirstOrDefaultAsync();
 
-                if (vals != null)
-                {
+               
                     var Product = new OrderModel()
                     {
                         Id = vals.Id,
@@ -33,8 +32,6 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById
 
                     };
                     return Product;
-                }
-                return null;
                
             }
         }

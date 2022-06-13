@@ -23,8 +23,7 @@ namespace AnyBuyStore.Core.Handlers.ProductWish.Queries.GetAllProductWishById
                 var getData = new List<ProductWishModel>();
 
                 {
-                    if (data.Any() == true)
-                    {
+                    
                         foreach (var vals in data)
                         {
                             getData.Add(new ProductWishModel()
@@ -35,7 +34,7 @@ namespace AnyBuyStore.Core.Handlers.ProductWish.Queries.GetAllProductWishById
                                
                             });
                         }
-                    }
+                    
                 }
 
                 return getData;

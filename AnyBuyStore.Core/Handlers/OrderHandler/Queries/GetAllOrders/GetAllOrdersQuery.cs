@@ -23,33 +23,32 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllOrders
             var ModelList = new List<OrderModel>();
 
             {
-                if (data.Any() == true)
+
+                foreach (var vals in data)
                 {
-                    foreach (var vals in data)
+                    ModelList.Add(new OrderModel()
                     {
-                        ModelList.Add(new OrderModel()
-                        {
-                            Id = vals.Id,
-                            UserId = vals.UserId,
-                            TotalAmount = vals.TotalAmount,
-                            TotalDiscount = vals.TotalDiscount
-                        });
-                    }
+                        Id = vals.Id,
+                        UserId = vals.UserId,
+                        TotalAmount = vals.TotalAmount,
+                        TotalDiscount = vals.TotalDiscount
+                    });
                 }
+
 
             }
 
 
             return ModelList;
         }
-       
+
     }
     public class OrderModel
     {
-      
+
         public int Id { get; set; }
 
-        public  int UserId { get; set; }
+        public int UserId { get; set; }
 
         public decimal? TotalAmount { get; set; }
 

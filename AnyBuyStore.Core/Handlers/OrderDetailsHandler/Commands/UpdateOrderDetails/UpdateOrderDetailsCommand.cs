@@ -24,12 +24,7 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdatePro
         public async Task<int> Handle(UpdateOrderDetailsCommand command, CancellationToken cancellationToken)
         {
             var UpdateData = _context.OrderDetails.Where(a => a.Id == command.In.Id).FirstOrDefault();
-            if (UpdateData == null)
-            {
-                return default;
-            }
-            else
-            {
+           
                 UpdateData.Id = command.In.Id;
                 UpdateData.ProductId = command.In.ProductId;
                 UpdateData.OrderId = command.In.OrderId;
@@ -40,7 +35,7 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdatePro
 
                 await _context.SaveChangesAsync();
                 return UpdateData.Id;
-            }
+            
         }
     }
     public class UpdateOrderDetailsModel

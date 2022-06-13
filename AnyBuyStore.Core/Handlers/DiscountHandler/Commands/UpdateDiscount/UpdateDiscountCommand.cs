@@ -24,12 +24,7 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdateDis
         public async Task<int> Handle(UpdateDiscountCommand command, CancellationToken cancellationToken)
         {
             var UpdateData = _context.Discount.Where(a => a.Id == command.In.Id).FirstOrDefault();
-            if (UpdateData == null)
-            {
-                return default;
-            }
-            else
-            {
+       
                 UpdateData.Id = command.In.Id;
                 UpdateData.Type = command.In.Type;
                 UpdateData.Value = command.In.Value;
@@ -38,7 +33,7 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdateDis
 
                 await _context.SaveChangesAsync();
                 return UpdateData.Id;
-            }
+            
         }
     }
     public class UpdateDiscountModel

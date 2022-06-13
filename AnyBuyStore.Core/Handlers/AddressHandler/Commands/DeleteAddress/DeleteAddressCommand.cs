@@ -18,13 +18,11 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.DeleteAddress
             public async Task<int> Handle(DeleteAddressCommand command, CancellationToken cancellationToken)
             {
                 var deleteData = await _context.Address.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
-                if (deleteData != null)
-                {
+               
                     _context.Address.Remove(deleteData);
                     await _context.SaveChangesAsync();
                     return deleteData.Id;
-                }
-                return 0;
+               
             }
         }
     }

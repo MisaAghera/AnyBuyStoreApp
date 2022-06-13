@@ -23,12 +23,7 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Commands.UpdateUser
         public async Task<int> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
         {
             var UpdateData = _context.Users.Where(a => a.Id == command.In.Id).FirstOrDefault();
-            if (UpdateData == null)
-            {
-                return default;
-            }
-            else
-            {
+           
                 UpdateData.Id = command.In.Id;
                 UpdateData.UserName = command.In.UserName;
                 UpdateData.Email = command.In.Email;
@@ -38,7 +33,7 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Commands.UpdateUser
 
                 await _context.SaveChangesAsync();
                 return UpdateData.Id;
-            }
+            
         }
     }
     public class UpdateUserModel

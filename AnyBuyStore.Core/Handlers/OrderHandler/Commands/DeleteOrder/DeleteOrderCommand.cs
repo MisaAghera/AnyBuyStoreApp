@@ -18,13 +18,11 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Commands.DeleteOrder
             public async Task<int> Handle(DeleteOrderCommand command, CancellationToken cancellationToken)
             {
                 var deleteData = await _context.Order.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
-                if (deleteData != null)
-                {
+           
                     _context.Order.Remove(deleteData);
                     await _context.SaveChangesAsync();
                     return deleteData.Id;
-                }
-                return 0;
+            
             }
         }
     }

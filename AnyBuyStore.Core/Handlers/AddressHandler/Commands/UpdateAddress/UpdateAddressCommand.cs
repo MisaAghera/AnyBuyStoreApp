@@ -24,12 +24,7 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.UpdateAddress
         public async Task<int> Handle(UpdateAddressCommand command, CancellationToken cancellationToken)
         {
             var UpdateData = _context.Address.Where(a => a.Id == command.In.Id).FirstOrDefault();
-            if (UpdateData == null)
-            {
-                return default;
-            }
-            else
-            {
+           
                 UpdateData.Id = command.In.Id;
                 UpdateData.House = command.In.House;
                 UpdateData.Street = command.In.Street;
@@ -44,7 +39,7 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.UpdateAddress
 
                 await _context.SaveChangesAsync();
                 return UpdateData.Id;
-            }
+            
         }
     }
     public class UpdateAddressModel

@@ -17,13 +17,11 @@ namespace AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.DeleteProductFro
             public async Task<int> Handle(DeleteProductFromCartCommand command, CancellationToken cancellationToken)
             {
                 var deleteData = await _context.ProductCart.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
-                if (deleteData != null)
-                {
+            
                     _context.ProductCart.Remove(deleteData);
                     await _context.SaveChangesAsync();
                     return deleteData.Id;
-                }
-                return 0;
+             
             }
         }
     }

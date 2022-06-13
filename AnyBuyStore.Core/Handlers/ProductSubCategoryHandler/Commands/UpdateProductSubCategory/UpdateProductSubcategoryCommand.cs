@@ -23,12 +23,7 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdatePro
         public async Task<int> Handle(UpdateProductSubcategoryCommand command, CancellationToken cancellationToken)
         {
             var UpdateData = _context.ProductSubcategory.Where(a => a.Id == command.In.Id).FirstOrDefault();
-            if (UpdateData == null)
-            {
-                return default;
-            }
-            else
-            {
+          
                 UpdateData.Name = command.In.Name;
                 UpdateData.ProductCategoryId = command.In.ProductCategoryId;
                 UpdateData.UpdatedAt = DateTime.Now;
@@ -36,7 +31,7 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdatePro
 
                 await _context.SaveChangesAsync();
                 return UpdateData.Id;
-            }
+            
         }
     }
     public class UpdateProductsubcategoryModel

@@ -20,8 +20,7 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetai
             var Products = new List<OrderDetailsModel>();
 
             {
-                if (data.Any() == true)
-                {
+               
                     foreach (var vals in data)
                     {
                         Products.Add(new OrderDetailsModel()
@@ -37,7 +36,7 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetai
                     }
                 }
 
-            }
+           
 
             return Products;
         }

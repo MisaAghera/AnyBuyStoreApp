@@ -17,8 +17,7 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsB
         public async Task<OrderDetailsModel> Handle(GetOrderDetailsByIdQuery request, CancellationToken cancellationToken)
         {
             var data = await _context.OrderDetails.Where(a=> a.Id == request.Id).FirstOrDefaultAsync();
-            if(data != null)
-            {
+            
                 var ModelList = new OrderDetailsModel()
                 {
                     Id = data.Id,
@@ -31,8 +30,7 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsB
 
                 return ModelList;
 
-            }
-            return null;
+          
             
         }
        

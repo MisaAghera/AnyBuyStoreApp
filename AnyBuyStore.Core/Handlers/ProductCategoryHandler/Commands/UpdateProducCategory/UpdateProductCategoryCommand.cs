@@ -23,19 +23,14 @@ namespace AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.UpdateProduc
         public async Task<int> Handle(UpdateProductCategoryCommand command, CancellationToken cancellationToken)
         {
             var UpdateData = _context.ProductCategory.Where(a => a.Id == command.In.Id).FirstOrDefault();
-            if (UpdateData == null)
-            {
-                return default;
-            }
-            else
-            {
+          
                 UpdateData.Name = command.In.Name;
                 UpdateData.UpdatedAt = DateTime.Now;
 
 
                 await _context.SaveChangesAsync();
                 return UpdateData.Id;
-            }
+            
         }
     }
     public class UpdateProductCategoryModel

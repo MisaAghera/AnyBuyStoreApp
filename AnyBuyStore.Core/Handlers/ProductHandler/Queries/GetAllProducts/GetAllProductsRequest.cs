@@ -20,22 +20,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts
 
 
             var Products = new List<ProductModel>();
-            //var newModel = new ProductModel()
-            //{
-            //    DiscountId = 1,
-            //    ProductSubcategoryId = 2,
-            //    Name = "prod",
-            //    Description = "desc",
-            //    Price = 1234,
-            //    Brand = "benad",
-            //    ImageUrl = "img.jpf",
-            //    Quantity = 2
-
-            //};
-            // Products.Add(newModel);
-
-            if (data.Any() == true)
-            {
+           
                 foreach (var product in data)
                 {
                     Products.Add(new ProductModel()
@@ -51,7 +36,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts
                         Quantity = product.Quantity
                     });
                 }
-            }
+            
             return Products;
         }
     }
