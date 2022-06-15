@@ -27,6 +27,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct
 
             var addData = new Product()
             {
+                UserId = command.In.UserId,
                DiscountId = command.In.DiscountId,
                ProductSubcategoryId = command.In.ProductSubcategoryId,
                Name  = command.In.Name,
@@ -46,6 +47,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct
     public class ProductModel
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
         public int? DiscountId { get; set; }
         public int ProductSubcategoryId { get; set; }
         public string Name { get; set; } = String.Empty;

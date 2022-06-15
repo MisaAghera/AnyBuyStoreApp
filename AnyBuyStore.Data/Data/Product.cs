@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AnyBuyStore.Data.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AnyBuyStore.Data.Data
@@ -8,6 +9,11 @@ namespace AnyBuyStore.Data.Data
         [Key]
         [Column("id")]
         public int Id { get; set; }
+
+
+        [Display(Name = "User")]
+        [Column("user_id")]
+        public virtual int UserId { get; set; }
 
         [Display(Name = "Discount")]
         [Column("discount_id")]
@@ -49,10 +55,13 @@ namespace AnyBuyStore.Data.Data
 
         [ForeignKey("ProductSubcategoryId")]
         public virtual ProductSubcategory ProductSubcategory { get; set; } 
-
-        
+      
         [ForeignKey("DiscountId")]
-        public virtual Discount Discount { get; set; } = new Discount();
+        public virtual Discount Discount { get; set; } 
+
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; } 
+
 
 
         public virtual OrderDetails OrderDetails { get; set; }

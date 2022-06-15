@@ -25,7 +25,9 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.UpdateProduct
         {
             var product = new Product()
             {
+
                 Id = command.productModel.Id,
+                UserId = command.productModel.UserId,
                 DiscountId = command.productModel.DiscountId,
                 ProductSubcategoryId = command.productModel.ProductSubcategoryId,
                 Name = command.productModel.Name,
@@ -46,6 +48,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.UpdateProduct
     public class UpdateProductModel
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
         public int? DiscountId { get; set; }
         public int ProductSubcategoryId { get; set; }
         public string Name { get; set; } = String.Empty;
