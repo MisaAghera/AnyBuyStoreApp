@@ -5,6 +5,7 @@ using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts;
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProductsBySubcategory;
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace AnyBuyStore.Controllers
 {
@@ -26,6 +27,8 @@ namespace AnyBuyStore.Controllers
             return Ok(await _mediator.Send(new GetProductByIdQuery { Id = Id }, cancellationToken));
         }
 
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add(AddProductCommand command, CancellationToken cancellationToken)
         {

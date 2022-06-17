@@ -41,7 +41,10 @@ namespace AnyBuyStore.Core.Handlers.SignupHandler.Commands.Signup
             {
                 Email = command.In.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = command.In.Username
+                UserName = command.In.Username,
+                PhoneNumber = command.In.PhoneNumber,
+                Gender = command.In.Gender,
+                Age = command.In.Age,
             };
             var result = await _userManager.CreateAsync(user, command.In.Password);
             if (!result.Succeeded)
@@ -58,14 +61,20 @@ namespace AnyBuyStore.Core.Handlers.SignupHandler.Commands.Signup
     public class RegisterModel
     {
         [Required(ErrorMessage = "User Name is required")]
-        public string? Username { get; set; }
+        public string Username { get; set; } = string.Empty;
 
         [EmailAddress]
         [Required(ErrorMessage = "Email is required")]
-        public string? Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Password is required")]
-        public string? Password { get; set; }
+        public string Password { get; set; } = string.Empty;
+
+        public string? PhoneNumber { get; set; }
+
+        public string? Gender { get; set; }
+
+        public int? Age { get; set; }
     }
 
     //public class ResponseModel

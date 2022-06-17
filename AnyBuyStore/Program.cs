@@ -1,4 +1,3 @@
-
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.AddProductCategory;
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Queries.GetAllProductCategories;
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts;
@@ -51,6 +50,7 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuer = true,
         ValidateAudience = true,
+        //ValidateLifetime = true,
         ValidAudience = builder.Configuration["JWT:ValidAudience"],
         ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
@@ -117,6 +117,7 @@ app.UseCors(builder =>
     .AllowAnyMethod()
     .AllowAnyHeader();
 });
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

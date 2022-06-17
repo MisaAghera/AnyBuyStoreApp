@@ -59,10 +59,17 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
                 return new TokenModel
                 {
                     Token = new JwtSecurityTokenHandler().WriteToken(token),
-                    Expiration = token.ValidTo
+                    Expiration = token.ValidTo,
+                    IsAuthSuccessful = true
                 };
 
             }
+            return new TokenModel
+            {
+                IsAuthSuccessful = false,
+                ErrorMessage = "Invalid Authentication"
+
+            };
             return null;
         }
 
@@ -83,6 +90,7 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
     }
 
     public class LoginModel
+
     {
         [Required(ErrorMessage = "User Name is required")]
         public string? Username { get; set; }
@@ -93,8 +101,10 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
 
     public class TokenModel
     {
-        public string? Token { get; set; }
-        public DateTime? Expiration { get; set; }
+        public bool IsAuthSuccessful { get; set; }
+        public string Token { get; set; }
+        public string? ErrorMessage { get; set; }
+        public DateTime Expiration { get; set; }
     }
 
 

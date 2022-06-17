@@ -3,6 +3,7 @@ using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.DeleteProductCat
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.UpdateProducCategory;
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Queries.GetAllProductCategories;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnyBuyStore.Controllers
@@ -19,6 +20,7 @@ namespace AnyBuyStore.Controllers
             return Ok(await _mediator.Send(new GetAllProductCetgoriesRequest(), cancellationToken));
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add(AddProductCategoryCommand command, CancellationToken cancellationToken)
         {
