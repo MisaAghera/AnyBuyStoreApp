@@ -8,7 +8,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace AnyBuyStore.Controllers
 {
-
     public class ProductController : BaseApiController
     {
         public ProductController(ILogger<BaseApiController> logger, IMediator mediator) : base(logger, mediator)

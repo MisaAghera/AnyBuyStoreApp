@@ -25,7 +25,7 @@ namespace API.Errors
                     401=> "error 401,you are not authorized",
                     404=> "error 404 ,request not found",
                     500=>
-                    "error 500",
+                    "either user exist or user is not created",
                     _ => null
                 };
         }

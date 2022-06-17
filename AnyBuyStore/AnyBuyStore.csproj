@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AnyBuyStore.Core\AnyBuyStore.Core.csproj" />
     <ProjectReference Include="..\AnyBuyStore.Data\AnyBuyStore.Data.csproj" />
+    <ProjectReference Include="..\AnyBuyStore.Shared\AnyBuyStore.Shared.csproj" />
   </ItemGroup>
 
 </Project>

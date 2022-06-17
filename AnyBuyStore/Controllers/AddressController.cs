@@ -4,9 +4,12 @@ using AnyBuyStore.Core.Handlers.AddressHandler.Commands.UpdateAddress;
 using AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAddressByOrderIdQuery;
 using API.Errors;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace AnyBuyStore.Controllers
 {
+    //[Authorize]
+
     public class AddressController : BaseApiController
     {
         public AddressController(ILogger<BaseApiController> logger, IMediator mediator) : base(logger, mediator)
