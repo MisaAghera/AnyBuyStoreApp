@@ -28,7 +28,6 @@ namespace AnyBuyStore.Controllers
         }
 
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add(AddProductCommand command, CancellationToken cancellationToken)
         {

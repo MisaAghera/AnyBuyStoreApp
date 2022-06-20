@@ -25,7 +25,7 @@ namespace AnyBuyStore.Core.Handlers.DiscountHandler.Commands.AddDiscount
             {
                 Type = command.In.Type,
                 Value = command.In.Value,
-                IsActive = command.In.IsActive,
+                IsActive = true,
 
             };
 
