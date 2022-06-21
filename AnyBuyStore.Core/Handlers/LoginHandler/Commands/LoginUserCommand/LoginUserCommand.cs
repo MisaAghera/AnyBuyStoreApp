@@ -39,6 +39,11 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
         public async Task<TokenModel?> Handle(LoginUserCommand command, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(command.In.Username);
+            if(user == null || await _userManager.CheckPasswordAsync(user, command.In.Password)==false)
+            {
+                return null;
+            }
+            
             if (user != null && await _userManager.CheckPasswordAsync(user, command.In.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
@@ -62,15 +67,14 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
                     Expiration = token.ValidTo,
                     IsAuthSuccessful = true
                 };
-
             }
+
             return new TokenModel
             {
                 IsAuthSuccessful = false,
                 ErrorMessage = "Invalid Authentication"
 
             };
-            return null;
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
@@ -98,6 +102,7 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
         [Required(ErrorMessage = "Password is required")]
         public string? Password { get; set; }
     }
+
 
     public class TokenModel
     {

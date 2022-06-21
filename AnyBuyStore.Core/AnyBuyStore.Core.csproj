@@ -10,7 +10,6 @@
     <Folder Include="Handlers\LoginHandler\Queries\" />
     <Folder Include="Handlers\ProductSubCategoryHandler\Queries\GetAllProductSubCategories\" />
     <Folder Include="Handlers\SignupHandler\Commands\SignupAdmin\" />
-    <Folder Include="images\" />
   </ItemGroup>
 
   <ItemGroup>

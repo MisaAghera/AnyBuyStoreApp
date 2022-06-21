@@ -1,6 +1,7 @@
 ﻿using AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct;
 using AnyBuyStore.Core.Handlers.ProductHandler.Commands.DeleteProductById;
 using AnyBuyStore.Core.Handlers.ProductHandler.Commands.UpdateProduct;
+using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllByUserId;
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts;
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProductsBySubcategory;
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById;
@@ -52,7 +53,13 @@ namespace AnyBuyStore.Controllers
             return Ok(await _mediator.Send(new GetAllProductsBySubcategoryQuery { ProductCategoryId = SubcategoryId }, cancellationToken));
         }
 
-       
+        [HttpGet]
+        public async Task<IActionResult> GetAllByUSerId(int UserId, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new GetAllByUserIdQuery { UserId = UserId }, cancellationToken));
+        }
+
+
 
     }
 

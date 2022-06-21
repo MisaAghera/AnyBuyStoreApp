@@ -20,7 +20,7 @@ namespace AnyBuyStore.Controllers
             return Ok(await _mediator.Send(new GetAllProductCetgoriesRequest(), cancellationToken));
         }
 
-        [Authorize]
+       
         [HttpPost]
         public async Task<IActionResult> Add(AddProductCategoryCommand command, CancellationToken cancellationToken)
         {

@@ -41,7 +41,7 @@ namespace AnyBuyStore.Controllers
 
             if (result == null)
             {
-                return BadRequest();
+                return NotFound(new ApiResponse(404));
             }
             return Ok(result);
         }
