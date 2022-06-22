@@ -1,12 +1,7 @@
-﻿
-
-
-using AnyBuyStore.Data.Data;
+﻿using AnyBuyStore.Data.Data;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Http.Headers;
 
 namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct
 
@@ -19,7 +14,6 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct
         }
         public ProductModel In { get; set; }
     }
-
 
     public class AddProductHandler : IRequestHandler<AddProductCommand, int>
     {
@@ -38,8 +32,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct
 
             var addData = new Product()
             {
-                //UserId = command.In.UserId,
-                UserId = 2,
+                UserId = command.In.UserId,
                 DiscountId = command.In.DiscountId,
                 ProductSubcategoryId = command.In.ProductSubcategoryId,
                 Name = command.In.Name,
@@ -48,14 +41,13 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct
                 Brand = command.In.Brand,
                 ImageUrl = command.In.ImageUrl,
                 Quantity = command.In.Quantity,
-
         };
 
-            if (command.In.ProductImg != null)
-            {
+            //if (command.In.ProductImg != null)
+            //{
                 
-                command.In.ImageUrl = await UploadProfilePicture(command.In.ProductImg);
-            }
+            //    command.In.ImageUrl = await UploadProfilePicture(command.In.ProductImg);
+            //}
 
             //addData.ImageUrl = command.In.ImageUrl;
 
@@ -104,7 +96,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct
             public string Brand { get; set; } = String.Empty;
             public string ImageUrl { get; set; } = String.Empty;
             public int Quantity { get; set; } = 1;
-            public IFormFile ProductImg { get; set; }
+           // public IFormFile ProductImg { get; set; }
 
         }
 
