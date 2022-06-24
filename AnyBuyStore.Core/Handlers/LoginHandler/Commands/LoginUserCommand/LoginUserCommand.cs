@@ -61,12 +61,15 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
 
                 var token = GetToken(authClaims);
 
-                return new TokenModel
+                var valss =  new TokenModel
                 {
                     Token = new JwtSecurityTokenHandler().WriteToken(token),
+                    UserId = user.Id,
+                    UserName = user.UserName,
                     Expiration = token.ValidTo,
                     IsAuthSuccessful = true
                 };
+                return valss;
             }
 
             return new TokenModel
@@ -107,7 +110,9 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
     public class TokenModel
     {
         public bool IsAuthSuccessful { get; set; }
-        public string Token { get; set; }
+        public string? Token { get; set; }
+        public int? UserId { get ; set; }
+        public string? UserName { get; set; }
         public string? ErrorMessage { get; set; }
         public DateTime Expiration { get; set; }
     }
