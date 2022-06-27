@@ -2,6 +2,7 @@
 using AnyBuyStore.Core.Handlers.DiscountHandler.Commands.AddDiscount;
 using AnyBuyStore.Core.Handlers.DiscountHandler.DeleteDiscount;
 using AnyBuyStore.Core.Handlers.DiscountHandler.Queries.GetAllDiscounts;
+using AnyBuyStore.Core.Handlers.DiscountHandler.Queries.GetById;
 using AnyBuyStore.Core.Handlers.DiscountHandler.Queries.GetProductsByDiscountId;
 using AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdateDiscount;
 using MediatR;
@@ -17,7 +18,7 @@ namespace AnyBuyStore.Controllers
         }
 
         [HttpGet("{DiscountId}")]
-        public async Task<IActionResult> GetById(int DiscountId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetpProductsById(int DiscountId, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(new GetProductsByDiscountIdQuery { DiscountId = DiscountId }, cancellationToken));
         }
@@ -46,6 +47,19 @@ namespace AnyBuyStore.Controllers
             command.In.Id = id;
             return Ok(await _mediator.Send(command, cancellationToken));
         }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetById(int Id, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetByIdQuery { Id = Id }, cancellationToken);
+            if (result != null)
+            {
+                return Ok(result);
+
+            }
+            return BadRequest();
+        }
+
 
     }
 

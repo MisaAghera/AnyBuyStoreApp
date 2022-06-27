@@ -28,6 +28,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProductsBySubca
                         getData.Add(new ProductModel()
                         {
                             Id = product.Id,
+                            UserId = product.UserId,
                             DiscountId = product.DiscountId,
                             ProductSubcategoryId = product.ProductSubcategoryId,
                             Name = product.Name,
@@ -48,6 +49,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProductsBySubca
     public class ProductModel
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
         public int? DiscountId { get; set; }
         public int ProductSubcategoryId { get; set; }
         public string Name { get; set; } = String.Empty;

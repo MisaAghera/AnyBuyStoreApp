@@ -25,7 +25,13 @@ namespace AnyBuyStore.Controllers
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetById(int Id, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new GetProductByIdQuery { Id = Id }, cancellationToken));
+            var result = await _mediator.Send(new GetProductByIdQuery { Id = Id },cancellationToken);
+            if (result != null)
+            {
+                return Ok(result);
+
+            }
+            return BadRequest();
         }
 
 
@@ -42,9 +48,9 @@ namespace AnyBuyStore.Controllers
         }
 
         [HttpPut("put")]
-        public async Task<IActionResult> Update(UpdateProductModel ProductModel, CancellationToken cancellationToken)
+        public async Task<IActionResult> Update(int id, UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new UpdateProductCommand { productModel = ProductModel }, cancellationToken));
+            return Ok(await _mediator.Send(command, cancellationToken));
         }
 
         [HttpGet]

@@ -6,13 +6,12 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.UpdateProduct
 {
     public class UpdateProductCommand : IRequest<bool>
     {
-        //public UpdateProductCommand(ProductModel @in)
-        //{
-        //    In = @in;
+        public UpdateProductCommand(UpdateProductModel @in)
+        {
+            In = @in;
 
-        //}
-        public UpdateProductModel productModel { get; set; }
-        //}
+        }
+        public UpdateProductModel In { get; set; }
     }
     public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, bool>
     {
@@ -23,27 +22,24 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.UpdateProduct
         }
         public async Task<bool> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            var product = new Product()
-            {
+            var UpdateData = _context.Product.Where(a => a.Id == command.In.Id).FirstOrDefault();
 
-                Id = command.productModel.Id,
-                UserId = command.productModel.UserId,
-                DiscountId = command.productModel.DiscountId,
-                ProductSubcategoryId = command.productModel.ProductSubcategoryId,
-                Name = command.productModel.Name,
-                Price = command.productModel.Price, 
-                Description = command.productModel.Description,
-                Brand = command.productModel.Brand,
-                ImageUrl = command.productModel.ImageUrl,
-                Quantity = command.productModel.Quantity,
-                UpdatedAt = DateTime.Now
-            };
+            UpdateData.UserId = command.In.UserId;
+            UpdateData.DiscountId = command.In.DiscountId;
+            UpdateData.ProductSubcategoryId = command.In.ProductSubcategoryId;
+            UpdateData.Name = command.In.Name;
+            UpdateData.Price = command.In.Price;
+            UpdateData.Description = command.In.Description;
+            UpdateData.Brand = command.In.Brand;
+            UpdateData.ImageUrl = command.In.ImageUrl;
+            UpdateData.Quantity = command.In.Quantity;
+            UpdateData.UpdatedAt = DateTime.Now;
 
-            _context.Product.Update(product);
+
             await _context.SaveChangesAsync();
             return true;
+
         }
-       
     }
     public class UpdateProductModel
     {

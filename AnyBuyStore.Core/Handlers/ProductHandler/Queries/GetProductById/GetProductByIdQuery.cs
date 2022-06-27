@@ -21,10 +21,12 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById
             public async Task<ProductModel> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
             {
                 var data = await _context.Product.Where(a => a.Id == request.Id).FirstOrDefaultAsync();
-              
+              if(data != null)
+                {
                     var product = new ProductModel()
                     {
                         Id = data.Id,
+                        UserId = data.UserId,
                         DiscountId = data.DiscountId,
                         ProductSubcategoryId = data.ProductSubcategoryId,
                         Name = data.Name,
@@ -35,8 +37,8 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById
                         Quantity = data.Quantity
                     };
                     return product;
-               
-                           
+                }
+              return null;
             }
         }
     }
@@ -44,6 +46,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById
     {
 
         public int Id { get; set; }
+        public int UserId { get; set; }
         public int? DiscountId { get; set; }
         public int ProductSubcategoryId { get; set; }
         public string Name { get; set; } = String.Empty;
