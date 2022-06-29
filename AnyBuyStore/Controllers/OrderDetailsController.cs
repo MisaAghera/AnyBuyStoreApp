@@ -2,6 +2,7 @@
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Commands.AddOrderDetails;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Commands.DeleteOrderDetailsCommand;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetails;
+using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetailsByOrderId;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsById;
 using AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdateProductSubCategory;
 using MediatR;
@@ -46,6 +47,12 @@ namespace AnyBuyStore.Controllers
             return Ok(await _mediator.Send(command, cancellationToken));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllByOrderId(int OrderId, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new GetAllOrderDetailsByOrderIdQuery { OrderId = OrderId }, cancellationToken));
+        }
+        
     }
 
 }

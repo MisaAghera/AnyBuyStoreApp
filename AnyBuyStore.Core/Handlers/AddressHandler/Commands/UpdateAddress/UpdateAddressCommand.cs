@@ -33,7 +33,6 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.UpdateAddress
                 UpdateData.Country = command.In.Country;
                 UpdateData.ZipCode = command.In.ZipCode;
                 UpdateData.AddressType = command.In.AddressType;
-
                 UpdateData.UpdatedAt = DateTime.Now;
 
 
@@ -46,7 +45,7 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.UpdateAddress
     {
 
         public int Id { get; set; }
-        public virtual int OrderDetailsId { get; set; }
+        public virtual int OrderId { get; set; }
         public virtual int? UserId { get; set; }
         public string House { get; set; } = string.Empty;
 

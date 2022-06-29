@@ -12,8 +12,7 @@ namespace AnyBuyStore.Data.Models
         public string? Gender { get; set; } = string.Empty;
 
 
-        public virtual Address? Address { get; set; }
-
+        public virtual ICollection<Address>? Address { get; set; }
         public virtual ICollection<ProductWish>? ProductWishes { get; set; }
         public virtual ICollection<Order>? Orders { get; set; }
         public virtual ICollection<ProductCart>? ProductCarts { get; set; }

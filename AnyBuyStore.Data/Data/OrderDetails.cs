@@ -42,12 +42,8 @@ namespace AnyBuyStore.Data.Data
         public virtual Order Order{ get; set; }
 
         [ForeignKey("DiscountId")]
-
-
-
         public virtual Discount? Discount { get; set; }
 
-        public virtual Address Address { get; set; }
 
     }
 }

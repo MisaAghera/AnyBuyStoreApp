@@ -25,7 +25,7 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.AddAddress
             {
                 Id = command.In.Id,
                 UserId = command.In.UserId,
-                OrderDetailsId = command.In.OrderDetailsId, 
+                OrderId = command.In.OrderId, 
                 House = command.In.House,
                 Street = command.In.Street,
                 City = command.In.City,
@@ -46,7 +46,7 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.AddAddress
     {
 
         public int Id { get; set; }
-        public virtual int OrderDetailsId { get; set; }
+        public virtual int OrderId { get; set; }
         public virtual int? UserId { get; set; }
         public string House { get; set; } = string.Empty;
 

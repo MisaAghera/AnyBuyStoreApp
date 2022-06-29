@@ -15,7 +15,7 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetai
         }
         public async Task<IEnumerable<OrderDetailsModel>> Handle(GetAllOrderDetailsQuery request, CancellationToken cancellationToken)
         {
-            var data = await _context.OrderDetails.ToListAsync();
+            var data = await _context.OrderDetails.Include(a => a.Product).ToListAsync();
 
             var Products = new List<OrderDetailsModel>();
 
@@ -31,7 +31,8 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetai
                             DiscountId = vals.DiscountId,
                             Quantity = vals.Quantity,
                             Status = vals.Status,
-
+                            UpdatedAt = vals.UpdatedAt,
+                            Price = vals.Product.Price,
                         });
                     }
                 }
@@ -54,6 +55,11 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetai
         public int Quantity { get; set; }
 
         public string Status { get; set; } = string.Empty;
+
+        public decimal Price { get; set; } = 0;
+
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
 
     }
 }

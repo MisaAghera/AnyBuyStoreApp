@@ -4,6 +4,7 @@ using AnyBuyStore.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnyBuyStore.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220629100500_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,7 +89,9 @@ namespace AnyBuyStore.Data.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[user_id] IS NOT NULL");
 
                     b.ToTable("Address");
                 });
@@ -637,8 +641,8 @@ namespace AnyBuyStore.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("AnyBuyStore.Data.Models.User", "User")
-                        .WithMany("Address")
-                        .HasForeignKey("UserId");
+                        .WithOne("Address")
+                        .HasForeignKey("AnyBuyStore.Data.Data.Address", "UserId");
 
                     b.Navigation("Order");
 

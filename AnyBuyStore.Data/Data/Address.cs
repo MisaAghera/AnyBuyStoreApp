@@ -10,9 +10,9 @@ namespace AnyBuyStore.Data.Data
         [Column("id")]
         public int Id { get; set; }
 
-        [Display(Name = "OrderDetails")]
-        [Column("orderDetails_id")]
-        public virtual int OrderDetailsId { get; set; }
+        [Display(Name = "Order")]
+        [Column("order_id")]
+        public virtual int OrderId { get; set; }
 
         [Display(Name = "User")]
         [Column("user_id")]
@@ -49,8 +49,8 @@ namespace AnyBuyStore.Data.Data
 
 
 
-        [ForeignKey("OrderDetailsId")]
-        public virtual OrderDetails OrderDetails { get; set; }
+        [ForeignKey("OrderId")]
+        public virtual Order Order { get; set; }
         [ForeignKey("UserId")]
         public virtual User? User { get; set; }
 

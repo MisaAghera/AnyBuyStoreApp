@@ -34,6 +34,7 @@ namespace AnyBuyStore.Data.Data
 
 
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public virtual Address Address { get; set; }
 
 
     }

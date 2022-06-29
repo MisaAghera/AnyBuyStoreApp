@@ -16,7 +16,7 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsB
         }
         public async Task<OrderDetailsModel> Handle(GetOrderDetailsByIdQuery request, CancellationToken cancellationToken)
         {
-            var data = await _context.OrderDetails.Where(a=> a.Id == request.Id).FirstOrDefaultAsync();
+            var data = await _context.OrderDetails.Where(a=> a.Id == request.Id).Include(a => a.Product).FirstOrDefaultAsync();
             
                 var ModelList = new OrderDetailsModel()
                 {
@@ -26,20 +26,19 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsB
                     DiscountId = data.DiscountId,
                     Quantity = data.Quantity,
                     Status = data.Status,
+                    UpdatedAt = data.UpdatedAt,
+                    Price = data.Product.Price
                 };
 
                 return ModelList;
-
-          
-            
         }
        
     }
     public class OrderDetailsModel
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
 
+        public int ProductId { get; set; }
 
         public int OrderId { get; set; }
 
@@ -48,6 +47,11 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsB
         public int Quantity { get; set; }
 
         public string Status { get; set; } = string.Empty;
+
+        public decimal Price { get; set; } = 0;
+
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
     }
 
 }

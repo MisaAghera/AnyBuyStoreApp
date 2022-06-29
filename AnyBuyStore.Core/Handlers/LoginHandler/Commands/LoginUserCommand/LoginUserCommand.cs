@@ -48,6 +48,11 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
 
+                if (userRoles == null)
+                {
+                    Console.WriteLine("hert");
+                }
+
                 var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
