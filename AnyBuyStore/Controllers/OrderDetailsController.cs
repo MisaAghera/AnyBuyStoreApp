@@ -4,6 +4,7 @@ using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Commands.DeleteOrderDetailsC
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetails;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetailsByOrderId;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsById;
+using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsByOrderDetailsId;
 using AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdateProductSubCategory;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -51,6 +52,18 @@ namespace AnyBuyStore.Controllers
         public async Task<IActionResult> GetAllByOrderId(int OrderId, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(new GetAllOrderDetailsByOrderIdQuery { OrderId = OrderId }, cancellationToken));
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetByOrderDetailId(int Id, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetOrderDetailsByOrderDetailsIdQuery { Id = Id }, cancellationToken);
+            if (result != null)
+            {
+                return Ok(result);
+
+            }
+            return BadRequest();
         }
         
     }

@@ -7,7 +7,7 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAddress
 {
     public class GetAddressByOrderIdQuery : IRequest<AddressModel>
     {
-        public int OrderDetailsId { get; set; }
+        public int OrderId { get; set; }
 
         public class GetAddressByOrderIdHandler : IRequestHandler<GetAddressByOrderIdQuery, AddressModel>
         {
@@ -18,20 +18,19 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAddress
             }
             public async Task<AddressModel> Handle(GetAddressByOrderIdQuery request, CancellationToken cancellationToken)
             {
-                var vals = await _context.Address.Where(a => a.OrderId == request.OrderDetailsId).FirstOrDefaultAsync();
+                var vals = await _context.Order.Where(a => a.Id == request.OrderId).Include(a=>a.Address).FirstOrDefaultAsync();
 
                 var getData = new AddressModel()
                 {
-                    Id = vals.Id,
-                    OrderId = vals.OrderId,
-                    UserId = vals.UserId,
-                    House = vals.House,
-                    Street = vals.Street,
-                    City = vals.City,
-                    State = vals.State,
-                    Country = vals.Country,
-                    ZipCode = vals.ZipCode,
-                    AddressType = vals.AddressType,
+                    Id = vals.Address.Id,
+                    UserId = vals.Address.UserId,
+                    House = vals.Address.House,
+                    Street = vals.Address.Street,
+                    City = vals.Address.City,
+                    State = vals.Address.State,
+                    Country = vals.Address.Country,
+                    ZipCode = vals.Address.ZipCode,
+                    AddressType = vals.Address.AddressType,
 
                 };
 
@@ -42,7 +41,6 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAddress
     public class AddressModel
     {
         public int Id { get; set; }
-        public virtual int OrderId { get; set; }
         public virtual int? UserId { get; set; }
         public string House { get; set; } = string.Empty;
 

@@ -18,7 +18,7 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Queries.GetAddressByUserId
             }
             public async Task<IEnumerable<AddressModel>> Handle(GetAddressByUserIdQuery request, CancellationToken cancellationToken)
             {
-                var data = await _context.Address.Where(a => a.UserId == request.UserId).ToListAsync();
+                var data =  _context.Address.Where(a => a.UserId == request.UserId).ToList().GroupBy(x => x.AddressType, (key, group) => group.First());
 
                 var getData = new List<AddressModel>();
 
@@ -28,7 +28,6 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Queries.GetAddressByUserId
                         getData.Add(new AddressModel()
                         {
                             Id = vals.Id,
-                            OrderId = vals.OrderId,
                             UserId = vals.UserId,
                             House = vals.House,
                             Street = vals.Street,
@@ -50,7 +49,6 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Queries.GetAddressByUserId
     public class AddressModel
     {
         public int Id { get; set; }
-        public virtual int OrderId { get; set; }
         public virtual int? UserId { get; set; }
         public string House { get; set; } = string.Empty;
 

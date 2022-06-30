@@ -29,9 +29,12 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllOrders
                     ModelList.Add(new OrderModel()
                     {
                         Id = vals.Id,
+                        AddressId = vals.AddressId,
                         UserId = vals.UserId,
                         TotalAmount = vals.TotalAmount,
-                        TotalDiscount = vals.TotalDiscount
+                        TotalDiscount = vals.TotalDiscount,
+                        UpdatedAt = vals.UpdatedAt,
+
                     });
                 }
 
@@ -48,11 +51,15 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllOrders
 
         public int Id { get; set; }
 
+        public int AddressId { get; set; }
+
         public int UserId { get; set; }
 
         public decimal? TotalAmount { get; set; }
 
         public decimal? TotalDiscount { get; set; }
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
     }
 
 }

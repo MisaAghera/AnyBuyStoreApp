@@ -25,7 +25,6 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.UpdateAddress
         {
             var UpdateData = _context.Address.Where(a => a.Id == command.In.Id).FirstOrDefault();
            
-                UpdateData.Id = command.In.Id;
                 UpdateData.House = command.In.House;
                 UpdateData.Street = command.In.Street;
                 UpdateData.City = command.In.City;
@@ -45,7 +44,6 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.UpdateAddress
     {
 
         public int Id { get; set; }
-        public virtual int OrderId { get; set; }
         public virtual int? UserId { get; set; }
         public string House { get; set; } = string.Empty;
 

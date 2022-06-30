@@ -25,6 +25,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct
             var addData = new Order()
             {
                 Id = command.In.Id,
+                AddressId = command.In.AddressId,
                 UserId = command.In.UserId,
                 TotalAmount = command.In.TotalAmount,
                 TotalDiscount = command.In.TotalDiscount,
@@ -38,6 +39,8 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct
     public class OrderModel
     {
         public int Id { get; set; }
+
+        public int AddressId { get; set; }
 
         public int UserId { get; set; }
 

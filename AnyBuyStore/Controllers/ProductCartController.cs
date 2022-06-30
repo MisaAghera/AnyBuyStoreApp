@@ -1,4 +1,5 @@
 ﻿using AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.AddProductToCart;
+using AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.DeleteCartFromUserId;
 using AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.DeleteProductFromCart;
 using AnyBuyStore.Core.Handlers.ProductCartHandler.Commands.UpdateProductQuantityInCart;
 using AnyBuyStore.Core.Handlers.ProductCartHandler.Queries.GetAllCartProductsById;
@@ -37,7 +38,13 @@ namespace AnyBuyStore.Controllers
             command.In.Id = id;
             return Ok(await _mediator.Send(command, cancellationToken));
         }
-      
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteFromUserId(int id, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new DeleteCartFromUserIdCommand { userId = id }, cancellationToken));
+        }
+        
 
     }
 

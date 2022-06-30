@@ -27,12 +27,13 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById
                     {
                         Id = vals.Id,
                         UserId = vals.UserId,
+                        AddressId = vals.AddressId,
                         TotalAmount = vals.TotalAmount,
-                        TotalDiscount = vals.TotalDiscount
+                        TotalDiscount = vals.TotalDiscount,
+                        UpdatedAt = vals.UpdatedAt,
 
                     };
-                    return Product;
-               
+                    return Product;   
             }
         }
     }
@@ -40,12 +41,15 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById
     {
 
         public int Id { get; set; }
+        public int AddressId { get; set; }
 
         public int UserId { get; set; }
 
         public decimal? TotalAmount { get; set; }
 
         public decimal? TotalDiscount { get; set; }
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
     }
 }
 

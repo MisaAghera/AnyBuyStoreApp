@@ -5,6 +5,7 @@ using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllByUserId;
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts;
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProductsBySubcategory;
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById;
+using AnyBuyStore.Core.Handlers.ProductHandler.updateProductQuantity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -66,6 +67,13 @@ namespace AnyBuyStore.Controllers
         }
 
 
+        [HttpPut("put")]
+        public async Task<IActionResult> UpdateQuantity(int id, UpdateProductQuantityCommand command, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(command, cancellationToken));
+        }
+
+        
 
     }
 

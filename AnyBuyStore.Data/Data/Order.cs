@@ -10,7 +10,11 @@ namespace AnyBuyStore.Data.Data
         [Key]
         [Column("id")]
         public int Id { get; set; }
-        
+
+        [Display(Name = "Address")]
+        [Column("address_id")]
+        public virtual int AddressId { get; set; }
+
         [Display(Name = "User")]
         [Column("user_id")]
         public virtual int UserId { get; set; }
@@ -32,9 +36,10 @@ namespace AnyBuyStore.Data.Data
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
 
+        [ForeignKey("AddressId")]
+        public virtual Address Address { get; set; }
 
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
-        public virtual Address Address { get; set; }
 
 
     }
