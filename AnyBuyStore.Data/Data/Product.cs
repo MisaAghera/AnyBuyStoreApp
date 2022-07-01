@@ -40,7 +40,7 @@ namespace AnyBuyStore.Data.Data
 
        
         [Column("image_url")]
-        public string ImageUrl { get; set; } = String.Empty;
+        public string? ImageUrl { get; set; } = String.Empty;
         
        
         [Column("quantity")]

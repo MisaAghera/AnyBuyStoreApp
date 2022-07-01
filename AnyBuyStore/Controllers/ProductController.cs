@@ -9,6 +9,8 @@ using AnyBuyStore.Core.Handlers.ProductHandler.updateProductQuantity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProductModel = AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct.ProductModel;
+
 namespace AnyBuyStore.Controllers
 {
     public class ProductController : BaseApiController
@@ -26,7 +28,7 @@ namespace AnyBuyStore.Controllers
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetById(int Id, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetProductByIdQuery { Id = Id },cancellationToken);
+            var result = await _mediator.Send(new GetProductByIdQuery { Id = Id }, cancellationToken);
             if (result != null)
             {
                 return Ok(result);
@@ -37,10 +39,11 @@ namespace AnyBuyStore.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddProductCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> Add([FromForm] ProductModel ProductModel, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(command, cancellationToken));
+            return Ok(await _mediator.Send(new AddProductCommand { ProductModel = ProductModel }, cancellationToken));
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
@@ -49,9 +52,9 @@ namespace AnyBuyStore.Controllers
         }
 
         [HttpPut("put")]
-        public async Task<IActionResult> Update(int id, UpdateProductCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> Update(int id, [FromForm] UpdateProductModel ProductModel, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(command, cancellationToken));
+            return Ok(await _mediator.Send(new UpdateProductCommand { ProductModel = ProductModel }, cancellationToken));
         }
 
         [HttpGet]
@@ -73,8 +76,9 @@ namespace AnyBuyStore.Controllers
             return Ok(await _mediator.Send(command, cancellationToken));
         }
 
-        
+
 
     }
 
 }
+

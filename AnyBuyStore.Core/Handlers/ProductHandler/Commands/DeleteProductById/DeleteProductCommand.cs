@@ -18,13 +18,17 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.DeleteProductById
             public async Task<int> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
             {
                 var deleteData = await _context.Product.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
-             
-                    _context.Product.Remove(deleteData);
-                    await _context.SaveChangesAsync();
-                    return deleteData.Id;
-             
+
+                if (System.IO.File.Exists(deleteData.ImageUrl))
+                System.IO.File.Delete(deleteData.ImageUrl);
+
+                _context.Product.Remove(deleteData);
+                await _context.SaveChangesAsync();
+                return deleteData.Id;
+
             }
         }
     }
 }
+
 

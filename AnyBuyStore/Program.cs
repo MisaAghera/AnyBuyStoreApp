@@ -1,3 +1,6 @@
+
+
+
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.AddProductCategory;
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Queries.GetAllProductCategories;
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts;
@@ -15,7 +18,7 @@ using NLog.Extensions.Logging;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Host.ConfigureLogging((hostingContext,logging) =>
+builder.Host.ConfigureLogging((hostingContext, logging) =>
 {
     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
     logging.AddConsole();
