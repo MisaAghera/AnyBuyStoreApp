@@ -25,13 +25,17 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Commands.UpdateUser
             var UpdateData = _context.Users.Where(a => a.Id == command.In.Id).FirstOrDefault();
            
                 UpdateData.Id = command.In.Id;
+                UpdateData.NormalizedUserName = command.In.UserName.ToUpper();
+                UpdateData.NormalizedEmail  = command.In.Email.ToUpper();
                 UpdateData.UserName = command.In.UserName;
                 UpdateData.Email = command.In.Email;
                 UpdateData.Age = command.In.Age;
                 UpdateData.Gender = command.In.Gender;
+                UpdateData.PhoneNumber = command.In.PhoneNumber;
 
 
-                await _context.SaveChangesAsync();
+
+            await _context.SaveChangesAsync();
                 return UpdateData.Id;
             
         }
@@ -42,6 +46,8 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Commands.UpdateUser
         public int Id { get; set; }
 
         public string UserName { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; }
+
 
         public string Email { get; set; } = string.Empty;
 
