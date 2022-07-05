@@ -2,6 +2,7 @@
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.DeleteProductCategory;
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.UpdateProducCategory;
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Queries.GetAllProductCategories;
+using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Queries.GetById;
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Queries.GetCategoryFromSubId;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -46,6 +47,24 @@ namespace AnyBuyStore.Controllers
         {
             return Ok(await _mediator.Send(new GetCategoryFromSubIdQuery { SubcategoryId = SubcategoryId }, cancellationToken));
         }
+
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetById(int Id, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetByIdQuery { Id = Id }, cancellationToken);
+            if (result != null)
+            {
+                return Ok(result);
+
+            }
+            return BadRequest();
+        }
+
+
+       
+
+
 
     }
 

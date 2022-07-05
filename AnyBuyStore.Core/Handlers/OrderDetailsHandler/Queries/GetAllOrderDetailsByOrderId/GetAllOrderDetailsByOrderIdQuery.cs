@@ -34,7 +34,8 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetai
                             Quantity = vals.Quantity,
                             Status = vals.Status,
                             UpdatedAt = vals.UpdatedAt,
-                            Price = vals.Product.Price
+                            Price = vals.Product.Price,
+                            ProductName = vals.Product.Name,
 
                         });
                     }
@@ -50,6 +51,7 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetai
         public int Id { get; set; }
         public int ProductId { get; set; }
 
+        public string? ProductName { get; set; }
 
         public int OrderId { get; set; }
 

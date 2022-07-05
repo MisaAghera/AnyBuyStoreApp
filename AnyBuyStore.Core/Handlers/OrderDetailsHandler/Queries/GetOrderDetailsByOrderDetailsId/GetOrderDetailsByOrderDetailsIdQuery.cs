@@ -6,24 +6,24 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsB
 {
     
 
-    public class GetOrderDetailsByOrderDetailsIdQuery : IRequest<OrderDetailsModel>
+    public class GetOrderDetailsByOrderDetailsIdQuery : IRequest<OrderDetailsDetailsModel>
     {
         public int Id { get; set; }
 
 
-        public class GetOrderDetailsByOrderDetailsIdHandler : IRequestHandler<GetOrderDetailsByOrderDetailsIdQuery, OrderDetailsModel>
+        public class GetOrderDetailsByOrderDetailsIdHandler : IRequestHandler<GetOrderDetailsByOrderDetailsIdQuery, OrderDetailsDetailsModel>
         {
             private readonly DatabaseContext _context;
             public GetOrderDetailsByOrderDetailsIdHandler(DatabaseContext context)
             {
                 _context = context;
             }
-            public async Task<OrderDetailsModel> Handle(GetOrderDetailsByOrderDetailsIdQuery request, CancellationToken cancellationToken)
+            public async Task<OrderDetailsDetailsModel> Handle(GetOrderDetailsByOrderDetailsIdQuery request, CancellationToken cancellationToken)
             {
                 var data = await _context.OrderDetails.Where(a => a.Id == request.Id).Include(a => a.Product).FirstOrDefaultAsync();
                 if (data != null)
                 {
-                    var product = new OrderDetailsModel()
+                    var product = new OrderDetailsDetailsModel()
                     {
                         Id = data.Id,
                         ProductId = data.ProductId,
@@ -32,7 +32,9 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsB
                         Quantity = data.Quantity,
                         Status = data.Status,
                         UpdatedAt = data.UpdatedAt,
-                        Price = data.Product.Price
+                        Price = data.Product.Price,
+                        ProductName = data.Product.Name,
+
                     };
                     return product;
                 }
@@ -40,11 +42,14 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsB
             }
         }
     }
-    public class OrderDetailsModel
+    public class OrderDetailsDetailsModel
     {
         public int Id { get; set; }
 
         public int ProductId { get; set; }
+
+        public string? ProductName { get; set; }
+
 
         public int OrderId { get; set; }
 

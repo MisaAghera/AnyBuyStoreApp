@@ -27,7 +27,8 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsB
                     Quantity = data.Quantity,
                     Status = data.Status,
                     UpdatedAt = data.UpdatedAt,
-                    Price = data.Product.Price
+                    Price = data.Product.Price,
+                    ProductName = data.Product.Name,
                 };
 
                 return ModelList;
@@ -37,6 +38,9 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsB
     public class OrderDetailsModel
     {
         public int Id { get; set; }
+
+        public string? ProductName { get; set; }
+
 
         public int ProductId { get; set; }
 

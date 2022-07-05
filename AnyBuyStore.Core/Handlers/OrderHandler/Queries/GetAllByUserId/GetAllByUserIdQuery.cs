@@ -17,7 +17,7 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllByUserId
             }
             public async Task<IEnumerable<OrderModel>> Handle(GetAllByUserIdQuery request, CancellationToken cancellationToken)
             {
-                var data = await _context.Order.Where(a => a.UserId == request.UserId).ToListAsync();
+                var data = await _context.Order.Where(a => a.UserId == request.UserId).Include(a => a.Address).Include(a => a.User).ToListAsync();
 
                 var getData = new List<OrderModel>();
 
@@ -33,7 +33,8 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllByUserId
                             TotalAmount = vals.TotalAmount,
                             TotalDiscount = vals.TotalDiscount,
                             UpdatedAt = vals.UpdatedAt,
-
+                            AddressCity = vals.Address.City,
+                            UserName = vals.User.UserName
                         });
                     }
 
@@ -46,6 +47,11 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllByUserId
     public class OrderModel
     {
         public int Id { get; set; }
+
+
+        public string UserName { get; set; }
+
+        public string AddressCity { get; set; }
 
         public int AddressId { get; set; }
 
