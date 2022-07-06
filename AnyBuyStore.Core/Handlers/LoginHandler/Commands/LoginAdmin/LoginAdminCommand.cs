@@ -9,18 +9,18 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
+namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginAdminCommand
 {
-    public class LoginUserCommand : IRequest<TokenModel?>
+    public class LoginAdminCommand : IRequest<TokenModel?>
     {
-        public LoginUserCommand(LoginUserModel @in)
+        public LoginAdminCommand(LoginAdminModel @in)
         {
             In = @in;
         }
-        public LoginUserModel In { get; set; }
+        public LoginAdminModel In { get; set; }
     }
 
-    public class LoginHandler : IRequestHandler<LoginUserCommand, TokenModel?>
+    public class LoginHandler : IRequestHandler<LoginAdminCommand, TokenModel?>
     {
         private readonly DatabaseContext _context;
         private readonly IConfiguration _configuration;
@@ -36,7 +36,7 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
             _configuration = configuration;
         }
 
-        public async Task<TokenModel?> Handle(LoginUserCommand command, CancellationToken cancellationToken)
+        public async Task<TokenModel?> Handle(LoginAdminCommand command, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(command.In.Username);
             if(user == null || await _userManager.CheckPasswordAsync(user, command.In.Password)==false)
@@ -46,10 +46,16 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
             
             if (user != null && await _userManager.CheckPasswordAsync(user, command.In.Password))
             {
-                var IsRoleAvailable = _context.UserRoles.Where(a => a.RoleId == 2 && a.UserId == user.Id).FirstOrDefault();
-                if(IsRoleAvailable!=null)
+                var IsRoleAvailable = _context.UserRoles.Where(a => a.RoleId == 1 && a.UserId == user.Id).FirstOrDefault();
+
+                if (IsRoleAvailable != null)
                 {
                     var userRoles = await _userManager.GetRolesAsync(user);
+
+                    if (userRoles == null)
+                    {
+                        Console.WriteLine("hert");
+                    }
 
                     var authClaims = new List<Claim>
                 {
@@ -77,6 +83,7 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
                 return null;
             }
             return null;
+
             //return new TokenModel
             //{
             //    IsAuthSuccessful = false,
@@ -101,7 +108,7 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand
         }
     }
 
-    public class LoginUserModel
+    public class LoginAdminModel
 
     {
         [Required(ErrorMessage = "User Name is required")]

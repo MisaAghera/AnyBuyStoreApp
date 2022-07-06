@@ -3,8 +3,10 @@ using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Commands.AddOrderDetails;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Commands.DeleteOrderDetailsCommand;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetails;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetailsByOrderId;
+using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetailsOfMyProducts;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsById;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsByOrderDetailsId;
+using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsByProductId;
 using AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdateProductSubCategory;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -65,7 +67,22 @@ namespace AnyBuyStore.Controllers
             }
             return BadRequest();
         }
-        
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllByProductId(int productId, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new GetOrderDetailByProductIdQuery { productId = productId }, cancellationToken));
+        }
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllOrderDetailsOfMyProducts(int UserId, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new GetAllOrderDetailsOfMyProductsQuery { UserId = UserId }, cancellationToken));
+        }
     }
 
 }

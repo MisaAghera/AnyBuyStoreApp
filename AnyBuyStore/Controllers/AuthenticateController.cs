@@ -1,4 +1,6 @@
-﻿using AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand;
+﻿using AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginAdminCommand;
+using AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginSellerCommand;
+using AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand;
 using AnyBuyStore.Core.Handlers.SignupAdminHandler.Commands.SignupAdmin;
 using AnyBuyStore.Core.Handlers.SignupHandler.Commands.Signup;
 using AnyBuyStore.Core.Handlers.SignupHandler.Commands.SignupSeller;
@@ -34,8 +36,34 @@ namespace AnyBuyStore.Controllers
             return Ok(await _mediator.Send(command, cancellationToken));
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> Login(LoginUserCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> LoginAdmin(LoginAdminCommand command, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(command, cancellationToken);
+
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404));
+            }
+            return Ok(result);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> LoginSeller(LoginSellerCommand command, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(command, cancellationToken);
+
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404));
+            }
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LoginUser(LoginUserCommand command, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(command, cancellationToken);
 

@@ -43,7 +43,6 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdatePro
         public int Id { get; set; }
         public int ProductId { get; set; }
 
-
         public int OrderId { get; set; }
 
         public int? DiscountId { get; set; }
