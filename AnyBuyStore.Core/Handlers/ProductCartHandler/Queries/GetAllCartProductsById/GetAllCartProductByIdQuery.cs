@@ -36,6 +36,8 @@ namespace AnyBuyStore.Core.Handlers.ProductCartHandler.Queries.GetAllCartProduct
                                 IsAvailable = vals.IsAvailable,
                                 ProductPrice = vals.Product.Price,
                                 ProductName = vals.Product.Name,
+                                ProductImgUrl = vals.Product.ImageUrl,
+                                ActualProductQuantity = vals.Product.Quantity,
                             });
                         }
                     
@@ -52,6 +54,10 @@ namespace AnyBuyStore.Core.Handlers.ProductCartHandler.Queries.GetAllCartProduct
         public int UserId { get; set; }
 
         public virtual int ProductId { get; set; }
+
+        public  string ProductImgUrl { get; set; }
+
+        public int ActualProductQuantity { get; set; }
 
         public int Quantity { get; set; }
         public decimal? ProductPrice { get; set; }

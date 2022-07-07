@@ -4,9 +4,15 @@ using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Commands.DeleteOrderDetailsC
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetails;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetailsByOrderId;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetailsOfMyProducts;
+using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetailsOfMyProductsByMonth;
+using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetAllOrderDetailsOfMyProductsByYear;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsById;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsByOrderDetailsId;
 using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetOrderDetailsByProductId;
+using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetTotalProfitByProductId;
+using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetTotalProfitOfMyProductsOfThisMonth;
+using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetTotalProfitOfMyProductsOfThisYear;
+using AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetTotalProfitsOfMyProducts;
 using AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdateProductSubCategory;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -83,6 +89,41 @@ namespace AnyBuyStore.Controllers
         {
             return Ok(await _mediator.Send(new GetAllOrderDetailsOfMyProductsQuery { UserId = UserId }, cancellationToken));
         }
-    }
+        [HttpGet]
+        public async Task<IActionResult> GetAllOrderDetailsOfMyProductsByMonth(int UserId,int month, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new GetAllOrderDetailsOfMyProductsByMonthQuery { UserId = UserId , OrderMonth =month}, cancellationToken));
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllOrderDetailsOfMyProductsByYea(int UserId, int year, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new GetAllOrderDetailsOfMyProductsByYear { UserId = UserId, OrderYear = year }, cancellationToken));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTotalProfitByProductId(int UserId, int ProductId, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new GetTotalProfitByProductIdQuery { UserId = UserId, ProductId = ProductId }, cancellationToken));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTotalProfitOfMyProductsOfThisMonth(int UserId, int month, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new GetTotalProfitOfMyProductsOfThisMonthQuery { UserId = UserId, OrderMonth = month }, cancellationToken));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GeGetTotalProfitOfMyProductsOfThisYear(int UserId, int year, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new GeGetTotalProfitOfMyProductsOfThisYearQuery { UserId = UserId, OrderYear = year }, cancellationToken));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTotalProfitsOfMyProducts(int UserId ,CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new GetTotalProfitsOfMyProductsQuery { UserId = UserId }, cancellationToken));
+        }
+    }
+    
 }
