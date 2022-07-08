@@ -38,6 +38,7 @@ namespace AnyBuyStore.Controllers
         }
 
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] ProductModel ProductModel, CancellationToken cancellationToken)
         {
@@ -45,12 +46,14 @@ namespace AnyBuyStore.Controllers
         }
 
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(new DeleteProductCommand { Id = id }, cancellationToken));
         }
 
+        [Authorize]
         [HttpPut("put")]
         public async Task<IActionResult> Update(int id, [FromForm] UpdateProductModel ProductModel, CancellationToken cancellationToken)
         {
@@ -63,6 +66,7 @@ namespace AnyBuyStore.Controllers
             return Ok(await _mediator.Send(new GetAllProductsBySubcategoryQuery { ProductCategoryId = SubcategoryId }, cancellationToken));
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllByUSerId(int UserId, CancellationToken cancellationToken)
         {
@@ -70,6 +74,7 @@ namespace AnyBuyStore.Controllers
         }
 
 
+        [Authorize]
         [HttpPut("put")]
         public async Task<IActionResult> UpdateQuantity(int id, UpdateProductQuantityCommand command, CancellationToken cancellationToken)
         {

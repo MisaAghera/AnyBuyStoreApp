@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginSellerCommand
@@ -76,8 +77,9 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginSellerCommand
                         Token = new JwtSecurityTokenHandler().WriteToken(token),
                         UserId = user.Id,
                         UserName = user.UserName,
-                        Expiration = token.ValidTo,
-                        IsAuthSuccessful = true
+                        Expiration = DateTime.Now.AddSeconds(30),
+                        IsAuthSuccessful = true,
+                        Refreshtoken = GenerateRefreshToken(user.Id),
                     };
                     return valss;
                 }
@@ -85,12 +87,34 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginSellerCommand
             }
             return null;
 
-            //return new TokenModel
-            //{
-            //    IsAuthSuccessful = false,
-            //    ErrorMessage = "Invalid Authentication"
+      
+        }
+        private string GenerateRefreshToken(int userId)
+        {
+            var randomnumber = new byte[32];
+            using (var randomNumberGenerator = RandomNumberGenerator.Create())
+            {
+                randomNumberGenerator.GetBytes(randomnumber);
+                string RefreshToken = Convert.ToBase64String(randomnumber);
+                var user = _context.RefreshToken.FirstOrDefault(o => o.UserId == userId);
+                if (user != null)
+                {
+                    user.Refreshtoken = RefreshToken;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    var newRefreshToken = new RefreshToken()
+                    {
+                        UserId = userId,
+                        Refreshtoken = RefreshToken,
+                    };
+                    _context.RefreshToken.Add(newRefreshToken);
+                    _context.SaveChanges();
+                }
 
-            //};
+                return RefreshToken;
+            }
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
@@ -127,7 +151,9 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginSellerCommand
         public int? UserId { get ; set; }
         public string? UserName { get; set; }
         public string? ErrorMessage { get; set; }
-        public DateTime Expiration { get; set; }
+        public DateTime? Expiration { get; set; }
+        public string? Refreshtoken { get; set; }
+
     }
 
 

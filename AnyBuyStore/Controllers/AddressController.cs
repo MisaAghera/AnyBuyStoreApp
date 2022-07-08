@@ -20,6 +20,7 @@ namespace AnyBuyStore.Controllers
         {
         }
 
+        [Authorize]
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetByOrderId(int Id, CancellationToken cancellationToken)
         {
@@ -29,7 +30,7 @@ namespace AnyBuyStore.Controllers
             return Ok(result);
         }
 
-
+        [Authorize]
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetById(int Id, CancellationToken cancellationToken)
         {
@@ -39,18 +40,21 @@ namespace AnyBuyStore.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add(AddAddressCommand command, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(command, cancellationToken));
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(new DeleteAddressCommand { Id = id }, cancellationToken));
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, UpdateAddressCommand command, CancellationToken cancellationToken)
         {
@@ -58,6 +62,7 @@ namespace AnyBuyStore.Controllers
             return Ok(await _mediator.Send(command, cancellationToken));
         }
 
+        [Authorize]
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetAddressByUserId(int Id, CancellationToken cancellationToken)
         {

@@ -10,18 +10,18 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginAdminCommand
+namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.refreshToken
 {
-    public class LoginAdminCommand : IRequest<TokenModel?>
+    public class RefreshTokenCommand : IRequest<TokenModel?>
     {
-        public LoginAdminCommand(LoginAdminModel @in)
+        public RefreshTokenCommand(RefreshModel @in)
         {
             In = @in;
         }
-        public LoginAdminModel In { get; set; }
+        public RefreshModel In { get; set; }
     }
 
-    public class LoginHandler : IRequestHandler<LoginAdminCommand, TokenModel?>
+    public class LoginHandler : IRequestHandler<RefreshTokenCommand, TokenModel?>
     {
         private readonly DatabaseContext _context;
         private readonly IConfiguration _configuration;
@@ -37,48 +37,33 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginAdminCommand
             _configuration = configuration;
         }
 
-        public async Task<TokenModel?> Handle(LoginAdminCommand command, CancellationToken cancellationToken)
+        public async Task<TokenModel?> Handle(RefreshTokenCommand command, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByNameAsync(command.In.Username);
-            if(user == null || await _userManager.CheckPasswordAsync(user, command.In.Password)==false)
+            var tokenHandler  = new JwtSecurityTokenHandler();
+            var securityToken = (JwtSecurityToken)tokenHandler.ReadToken(command.In.Token);
+            var userId = command.In.UserId;
+
+            var refTable = _context.RefreshToken.FirstOrDefault(o => o.UserId == int.Parse(userId));
+            if (refTable == null)
             {
                 return null;
             }
-            
-            if (user != null && await _userManager.CheckPasswordAsync(user, command.In.Password))
+            else
             {
-                var IsRoleAvailable = _context.UserRoles.Where(a => a.RoleId == 1 && a.UserId == user.Id).FirstOrDefault();
-
-                if (IsRoleAvailable != null)
+                var token = GetToken(securityToken.Claims.ToList());
+                var valss = new TokenModel
                 {
-                    var userRoles = await _userManager.GetRolesAsync(user);
-                    var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    Token = new JwtSecurityTokenHandler().WriteToken(token),
+                    UserId = int.Parse(userId),
+                    Expiration = DateTime.Now.AddSeconds(3),
+                    IsAuthSuccessful = true,
+                    Refreshtoken = GenerateRefreshToken(int.Parse(userId)),
                 };
-
-                    foreach (var userRole in userRoles)
-                    {
-                        authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-                    }
-
-                    var token = GetToken(authClaims);
-
-                    var valss = new TokenModel
-                    {
-                        Token = new JwtSecurityTokenHandler().WriteToken(token),
-                        UserId = user.Id,
-                        UserName = user.UserName,
-                        Expiration = DateTime.Now.AddSeconds(1),
-                        IsAuthSuccessful = true,
-                        Refreshtoken = GenerateRefreshToken(user.Id),
-                    };
-                    return valss;
-                }
-                return null;
+                return valss;
             }
+
             return null;
+
         }
 
 
@@ -90,7 +75,7 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginAdminCommand
                 randomNumberGenerator.GetBytes(randomnumber);
                 string RefreshToken = Convert.ToBase64String(randomnumber);
                 var user = _context.RefreshToken.FirstOrDefault(o => o.UserId == userId);
-                if(user != null)
+                if (user != null)
                 {
                     user.Refreshtoken = RefreshToken;
                     _context.SaveChanges();
@@ -112,13 +97,13 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginAdminCommand
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
-            
+
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
                 audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddSeconds(30),
+                expires: DateTime.Now.AddSeconds(3),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );
@@ -127,14 +112,14 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginAdminCommand
         }
     }
 
-    public class LoginAdminModel
+    public class RefreshModel
 
     {
-        [Required(ErrorMessage = "User Name is required")]
-        public string? Username { get; set; }
+        public string? Token { get; set; }
 
-        [Required(ErrorMessage = "Password is required")]
-        public string? Password { get; set; }
+        public string? Refreshtoken { get; set; }
+
+        public string? UserId { get; set; }
     }
 
 
@@ -142,10 +127,10 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginAdminCommand
     {
         public bool IsAuthSuccessful { get; set; }
         public string? Token { get; set; }
-        public int? UserId { get ; set; }
+        public int? UserId { get; set; }
         public string? UserName { get; set; }
         public string? ErrorMessage { get; set; }
-        public DateTime Expiration { get; set; }
+        public DateTime? Expiration { get; set; }
         public string? Refreshtoken { get; set; }
     }
 

@@ -23,18 +23,21 @@ namespace AnyBuyStore.Controllers
         }
 
        
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add(AddProductCategoryCommand command, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(command, cancellationToken));
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(new DeleteProductCategoryCommand { Id = id }, cancellationToken));
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, UpdateProductCategoryCommand command, CancellationToken cancellationToken)
         {

@@ -13,7 +13,6 @@ namespace AnyBuyStore.Data.Models
 
 
         public virtual ICollection<Address>? Address { get; set; }
-        public virtual ICollection<ProductWish>? ProductWishes { get; set; }
         public virtual ICollection<Order>? Orders { get; set; }
         public virtual ICollection<ProductCart>? ProductCarts { get; set; }
         public virtual ICollection<Product>? Products { get; set; }

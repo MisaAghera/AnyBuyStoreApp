@@ -65,7 +65,6 @@ namespace AnyBuyStore.Data.Data
 
 
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
-        public virtual ICollection<ProductWish> ProductWishes { get; set; } 
         public virtual ICollection<ProductCart> ProductCarts { get; set; }
 
 
