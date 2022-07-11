@@ -40,7 +40,7 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginSellerCommand
         public async Task<TokenModel?> Handle(LoginSellerCommand command, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(command.In.Username);
-            if(user == null || await _userManager.CheckPasswordAsync(user, command.In.Password)==false)
+            if (user == null || await _userManager.CheckPasswordAsync(user, command.In.Password) == false)
             {
                 return null;
             }
@@ -77,7 +77,7 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginSellerCommand
                         Token = new JwtSecurityTokenHandler().WriteToken(token),
                         UserId = user.Id,
                         UserName = user.UserName,
-                        Expiration = DateTime.Now.AddSeconds(30),
+                        Expiration = DateTime.Now.AddMinutes(30),
                         IsAuthSuccessful = true,
                         Refreshtoken = GenerateRefreshToken(user.Id),
                     };
@@ -124,7 +124,7 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginSellerCommand
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
                 audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddSeconds(30),
+                expires: DateTime.Now.AddMinutes(30),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );

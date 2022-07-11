@@ -3,10 +3,12 @@ using AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginSellerCommand;
 using AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand;
 using AnyBuyStore.Core.Handlers.LoginHandler.Commands.refreshToken;
 using AnyBuyStore.Core.Handlers.SignupAdminHandler.Commands.SignupAdmin;
+using AnyBuyStore.Core.Handlers.SignupHandler.Commands.changePassword;
 using AnyBuyStore.Core.Handlers.SignupHandler.Commands.Signup;
 using AnyBuyStore.Core.Handlers.SignupHandler.Commands.SignupSeller;
 using API.Errors;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnyBuyStore.Controllers
@@ -37,6 +39,12 @@ namespace AnyBuyStore.Controllers
             return Ok(await _mediator.Send(command, cancellationToken));
         }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(ChangePasswordCommand command, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(command, cancellationToken));
+        }
 
         [HttpPost]
         public async Task<IActionResult> LoginAdmin(LoginAdminCommand command, CancellationToken cancellationToken)

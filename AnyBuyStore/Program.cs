@@ -1,6 +1,3 @@
-
-
-
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.AddProductCategory;
 using AnyBuyStore.Core.Handlers.ProductCategoryHandler.Queries.GetAllProductCategories;
 using AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts;
@@ -60,7 +57,14 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
     };
+}).AddGoogle("google", opt =>
+{
+    var googleAuth = builder.Configuration.GetSection("Authentication:Google");
+    opt.ClientId = googleAuth["ClientId"];
+    opt.ClientSecret = googleAuth["ClientSecret"];
+    opt.SignInScheme = IdentityConstants.ExternalScheme;
 });
+
 
 builder.Services.Configure<FormOptions>(o =>
 {

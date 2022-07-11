@@ -70,7 +70,7 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginAdminCommand
                         Token = new JwtSecurityTokenHandler().WriteToken(token),
                         UserId = user.Id,
                         UserName = user.UserName,
-                        Expiration = DateTime.Now.AddSeconds(1),
+                        Expiration = DateTime.Now.AddMinutes(30),
                         IsAuthSuccessful = true,
                         Refreshtoken = GenerateRefreshToken(user.Id),
                     };
@@ -118,7 +118,7 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginAdminCommand
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
                 audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddSeconds(30),
+                expires: DateTime.Now.AddMinutes(30),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );
