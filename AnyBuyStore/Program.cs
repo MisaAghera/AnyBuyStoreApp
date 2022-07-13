@@ -52,17 +52,11 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuer = true,
         ValidateAudience = true,
-        //ValidateLifetime = true,
+        ValidateLifetime = true,
         ValidAudience = builder.Configuration["JWT:ValidAudience"],
         ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
     };
-}).AddGoogle("google", opt =>
-{
-    var googleAuth = builder.Configuration.GetSection("Authentication:Google");
-    opt.ClientId = googleAuth["ClientId"];
-    opt.ClientSecret = googleAuth["ClientSecret"];
-    opt.SignInScheme = IdentityConstants.ExternalScheme;
 });
 
 

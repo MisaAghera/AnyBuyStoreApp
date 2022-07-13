@@ -47,6 +47,14 @@ namespace AnyBuyStore.Core.Handlers.SignupHandler.Commands.Signup
                 Age = command.In.Age,
             };
             var result = await _userManager.CreateAsync(user, command.In.Password);
+            //if (!await _roleManager.RoleExistsAsync(UserRoles.Customer))
+            //    await _roleManager.CreateAsync(new IdentityRole<int>(UserRoles.Customer));
+
+            //if (await _roleManager.RoleExistsAsync(UserRoles.Customer))
+            //{
+            //    await _userManager.AddToRoleAsync(user, UserRoles.Customer);
+            //}
+
             if (!result.Succeeded)
             {
                 new ApiResponse(500);

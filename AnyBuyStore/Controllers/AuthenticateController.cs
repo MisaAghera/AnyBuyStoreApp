@@ -1,4 +1,5 @@
-﻿using AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginAdminCommand;
+﻿using AnyBuyStore.Core.Handlers.LoginHandler.Commands.ExternalLogin;
+using AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginAdminCommand;
 using AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginSellerCommand;
 using AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand;
 using AnyBuyStore.Core.Handlers.LoginHandler.Commands.refreshToken;
@@ -82,6 +83,20 @@ namespace AnyBuyStore.Controllers
             }
             return Ok(result);
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ExternalLogin( ExternalAuthModel externalAuthModel, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new ExternalLoginCommand { model = externalAuthModel } , cancellationToken);
+
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404));
+            }
+            return Ok(result);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> LoginUser(LoginUserCommand command, CancellationToken cancellationToken)
