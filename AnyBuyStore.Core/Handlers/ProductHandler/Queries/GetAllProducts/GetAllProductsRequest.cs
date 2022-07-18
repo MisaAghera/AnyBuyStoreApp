@@ -16,8 +16,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts
         }
         public async Task<IEnumerable<ProductModel>> Handle(GetAllProductsRequest request, CancellationToken cancellationToken)
         {
-            var data = await _context.Product.ToListAsync();
-
+            var data = await _context.Product.Include(a => a.Discount).ToListAsync();
 
             var Products = new List<ProductModel>();
            
@@ -28,6 +27,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts
                         Id = product.Id,
                         UserId = product.UserId,
                         DiscountId = product.DiscountId,
+                        DiscountValue = product.Discount.Value,
                         ProductSubcategoryId = product.ProductSubcategoryId,
                         Name = product.Name,
                         Description = product.Description,
@@ -54,6 +54,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProducts
         public string Brand { get; set; } = String.Empty;
         public string ImageUrl { get; set; } = String.Empty;
         public int Quantity { get; set; } = 1;
+        public float? DiscountValue { get; set; }
 
     }
 

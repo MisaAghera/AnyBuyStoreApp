@@ -17,7 +17,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProductsBySubca
             }
             public async Task<IEnumerable<ProductModel>> Handle(GetAllProductsBySubcategoryQuery request, CancellationToken cancellationToken)
             {
-                var data = await _context.Product.Where(a => a.ProductSubcategoryId == request.ProductCategoryId).ToListAsync();
+                var data = await _context.Product.Where(a => a.ProductSubcategoryId == request.ProductCategoryId).Include(a => a.Discount).ToListAsync();
 
                 var getData = new List<ProductModel>();
 
@@ -36,7 +36,9 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProductsBySubca
                             Price = product.Price,
                             Brand = product.Brand,
                             ImageUrl = product.ImageUrl,
-                            Quantity = product.Quantity
+                            Quantity = product.Quantity,
+                            DiscountValue = product.Discount.Value,
+
                         });
                     }
 
@@ -58,6 +60,8 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetAllProductsBySubca
         public string Brand { get; set; } = String.Empty;
         public string ImageUrl { get; set; } = String.Empty;
         public int Quantity { get; set; } = 1;
+        public float? DiscountValue { get; set; }
+
 
     }
 

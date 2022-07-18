@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using NLog.Extensions.Logging;
+using Stripe;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -104,7 +105,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-//builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 var app = builder.Build();
 
