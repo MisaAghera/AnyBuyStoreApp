@@ -8,7 +8,8 @@ using API.Errors;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static AnyBuyStore.Core.Handlers.AddressHandler.Queries.GetAddressByUserId.GetAddressByUserIdQuery;
+
+
 
 namespace AnyBuyStore.Controllers
 {
@@ -47,6 +48,7 @@ namespace AnyBuyStore.Controllers
             return Ok(await _mediator.Send(command, cancellationToken));
         }
 
+
         [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
@@ -72,7 +74,7 @@ namespace AnyBuyStore.Controllers
             return Ok(result);
         }
 
-
+    
     }
 
 }

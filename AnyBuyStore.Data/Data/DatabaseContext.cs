@@ -26,6 +26,9 @@ namespace AnyBuyStore.Data.Data
         public DbSet<ProductCart> ProductCart { get;set;}
         public DbSet<ProductSubcategory> ProductSubcategory { get;set;}
         public DbSet<OrderDetails> OrderDetails { get;set;}
+        public DbSet<States> States { get; set; }
+        public DbSet<Cities> Cities { get; set; }
+        public DbSet<Countries> Countries { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
 
     }
