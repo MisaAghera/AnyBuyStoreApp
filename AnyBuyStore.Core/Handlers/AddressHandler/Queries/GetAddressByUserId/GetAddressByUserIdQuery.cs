@@ -31,9 +31,9 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Queries.GetAddressByUserId
                             UserId = vals.UserId,
                             House = vals.House,
                             Street = vals.Street,
-                            City = vals.City,
-                            State = vals.State,
-                            Country = vals.Country,
+                            StateId = vals.StateId,
+                            CityId = vals.CityId,
+                            CountryId = vals.CountryId,
                             ZipCode = vals.ZipCode,
                             AddressType = vals.AddressType,
 
@@ -54,11 +54,9 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Queries.GetAddressByUserId
 
         public string Street { get; set; } = string.Empty;
 
-        public string City { get; set; } = string.Empty;
-
-        public string State { get; set; } = string.Empty;
-
-        public string Country { get; set; } = string.Empty;
+        public int? CountryId { get; set; }
+        public int? CityId { get; set; }
+        public int? StateId { get; set; }
 
         public string ZipCode { get; set; } = string.Empty;
 

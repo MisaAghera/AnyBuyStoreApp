@@ -4,6 +4,7 @@ using AnyBuyStore.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnyBuyStore.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220719113137_CityStateCountryUpdateInAddress")]
+    partial class CityStateCountryUpdateInAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,9 +38,15 @@ namespace AnyBuyStore.Data.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("address_type");
 
+                    b.Property<int?>("CitiesId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("CityId")
                         .HasColumnType("int")
                         .HasColumnName("city_id");
+
+                    b.Property<int?>("CountriesId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("CountryId")
                         .HasColumnType("int")
@@ -56,6 +64,9 @@ namespace AnyBuyStore.Data.Migrations
                     b.Property<int?>("StateId")
                         .HasColumnType("int")
                         .HasColumnName("state_id");
+
+                    b.Property<int?>("StatesId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Street")
                         .IsRequired()
@@ -77,11 +88,11 @@ namespace AnyBuyStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("CitiesId");
 
-                    b.HasIndex("CountryId");
+                    b.HasIndex("CountriesId");
 
-                    b.HasIndex("StateId");
+                    b.HasIndex("StatesId");
 
                     b.HasIndex("UserId");
 
@@ -714,15 +725,15 @@ namespace AnyBuyStore.Data.Migrations
                 {
                     b.HasOne("AnyBuyStore.Data.Data.Cities", "Cities")
                         .WithMany("Address")
-                        .HasForeignKey("CityId");
+                        .HasForeignKey("CitiesId");
 
                     b.HasOne("AnyBuyStore.Data.Data.Countries", "Countries")
                         .WithMany("Address")
-                        .HasForeignKey("CountryId");
+                        .HasForeignKey("CountriesId");
 
                     b.HasOne("AnyBuyStore.Data.Data.States", "States")
                         .WithMany("Address")
-                        .HasForeignKey("StateId");
+                        .HasForeignKey("StatesId");
 
                     b.HasOne("AnyBuyStore.Data.Models.User", "User")
                         .WithMany("Address")

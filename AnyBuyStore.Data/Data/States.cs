@@ -29,5 +29,8 @@ namespace AnyBuyStore.Data.Data
 
 
         public virtual ICollection<Cities> Cities { get; set; }
+
+        public virtual ICollection<Address> Address { get; set; }
+
     }
 }

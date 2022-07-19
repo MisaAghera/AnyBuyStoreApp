@@ -27,9 +27,9 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.AddAddress
                 UserId = command.In.UserId,
                 House = command.In.House,
                 Street = command.In.Street,
-                City = command.In.City,
-                State = command.In.State,
-                Country = command.In.Country,
+                CityId = command.In.CityId,
+                StateId = command.In.StateId,
+                CountryId = command.In.CountryId,
                 ZipCode = command.In.ZipCode,
                 AddressType = command.In.AddressType,
          
@@ -50,11 +50,9 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.AddAddress
 
         public string Street { get; set; } = string.Empty;
 
-        public string City { get; set; } = string.Empty;
-
-        public string State { get; set; } = string.Empty;
-
-        public string Country { get; set; } = string.Empty;
+        public int? CountryId { get; set; }
+        public int? CityId { get; set; }
+        public int? StateId { get; set; }
 
         public string ZipCode { get; set; } = string.Empty;
 

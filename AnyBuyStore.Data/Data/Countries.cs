@@ -20,5 +20,7 @@ namespace AnyBuyStore.Data.Data
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         public virtual ICollection<States> States { get; set; }
+        public virtual ICollection<Address> Address { get; set; }
+
     }
 }

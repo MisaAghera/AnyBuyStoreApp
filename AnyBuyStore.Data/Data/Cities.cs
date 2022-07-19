@@ -27,5 +27,8 @@ namespace AnyBuyStore.Data.Data
         [ForeignKey("StateId")]
         public virtual States States { get; set; }
 
+        public virtual ICollection<Address> Address { get; set; }
+
+
     }
 }

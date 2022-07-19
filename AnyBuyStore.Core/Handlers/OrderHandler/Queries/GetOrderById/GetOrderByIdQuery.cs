@@ -30,7 +30,7 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Queries.GetProductById
                         TotalAmount = vals.TotalAmount,
                         TotalDiscount = vals.TotalDiscount,
                         UpdatedAt = vals.UpdatedAt,
-                        AddressCity= vals.Address.City,
+                        //AddressCity= vals.Address.City,
                         UserName = vals.User.UserName
                     };
                     return Product;   

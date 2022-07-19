@@ -27,9 +27,9 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.UpdateAddress
            
                 UpdateData.House = command.In.House;
                 UpdateData.Street = command.In.Street;
-                UpdateData.City = command.In.City;
-                UpdateData.State = command.In.State;
-                UpdateData.Country = command.In.Country;
+                UpdateData.CityId = command.In.CityId;
+                UpdateData.StateId = command.In.StateId;
+                UpdateData.CountryId = command.In.CountryId;
                 UpdateData.ZipCode = command.In.ZipCode;
                 UpdateData.AddressType = command.In.AddressType;
                 UpdateData.UpdatedAt = DateTime.Now;
@@ -44,19 +44,14 @@ namespace AnyBuyStore.Core.Handlers.AddressHandler.Commands.UpdateAddress
     {
 
         public int Id { get; set; }
-        public virtual int? UserId { get; set; }
+        public  int? UserId { get; set; }
         public string House { get; set; } = string.Empty;
-
         public string Street { get; set; } = string.Empty;
-
-        public string City { get; set; } = string.Empty;
-
-        public string State { get; set; } = string.Empty;
-
+        public int? CountryId { get; set; }
+        public  int? CityId { get; set; }
+        public  int? StateId { get; set; }
         public string Country { get; set; } = string.Empty;
-
         public string ZipCode { get; set; } = string.Empty;
-
         public string AddressType { get; set; } = string.Empty;
 
 
