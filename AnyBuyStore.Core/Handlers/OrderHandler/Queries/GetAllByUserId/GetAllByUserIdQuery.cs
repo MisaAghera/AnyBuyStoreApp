@@ -33,7 +33,6 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllByUserId
                             TotalAmount = vals.TotalAmount,
                             TotalDiscount = vals.TotalDiscount,
                             UpdatedAt = vals.UpdatedAt,
-                            //AddressCity = vals.Address.CityId,
                             UserName = vals.User.UserName
                         });
                     }
@@ -51,7 +50,6 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllByUserId
 
         public string UserName { get; set; }
 
-        public string AddressCity { get; set; }
 
         public int AddressId { get; set; }
 

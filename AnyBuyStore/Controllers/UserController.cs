@@ -66,7 +66,7 @@ namespace AnyBuyStore.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetAllByUserRolesId(int RoleId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAllByUserRolesId([FromQuery] List<int> RoleId, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(new GetAllUserByRolesQuery { RoleId = RoleId }, cancellationToken));
         }

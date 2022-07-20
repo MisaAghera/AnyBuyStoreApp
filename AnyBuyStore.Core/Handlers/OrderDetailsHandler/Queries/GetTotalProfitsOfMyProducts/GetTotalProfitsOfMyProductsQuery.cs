@@ -28,14 +28,8 @@ namespace AnyBuyStore.Core.Handlers.OrderDetailsHandler.Queries.GetTotalProfitsO
                               (orderDetail, product) => new { orderDetail = orderDetail, product = product })
                           .Where(productOrders => productOrders.product.UserId == request.UserId).Sum(ep => ep.orderDetail.Quantity * ep.product.Price);
 
-                if (Value != null)
-                {
+                
                     return Value;
-
-                }
-                else
-                    return 0;
-
 
             }
         }

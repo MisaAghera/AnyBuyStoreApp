@@ -18,7 +18,7 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAddress
             }
             public async Task<AddressModel> Handle(GetAddressByOrderIdQuery request, CancellationToken cancellationToken)
             {
-                var vals = await _context.Order.Where(a => a.Id == request.OrderId).Include(a=>a.Address).FirstOrDefaultAsync();
+                var vals = await _context.Order.Where(a => a.Id == request.OrderId).Include(a=>a.Address).ThenInclude(a => a.Countries).ThenInclude(a => a.States).ThenInclude(a => a.Cities).FirstOrDefaultAsync();
 
                 var getData = new AddressModel()
                 {
@@ -31,7 +31,9 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAddress
                     CountryId = vals.Address.CountryId,
                     ZipCode = vals.Address.ZipCode,
                     AddressType = vals.Address.AddressType,
-
+                    Country = vals.Address.Countries.Name,
+                    City = vals.Address.Cities.Name,
+                    State = vals.Address.States.Name,
                 };
 
                 return getData;
@@ -49,7 +51,9 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Queries.GetAddress
         public int? CountryId { get; set; }
         public int? CityId { get; set; }
         public int? StateId { get; set; }
-
+        public string? Country { get; set; }
+        public string? State { get; set; }
+        public string? City { get; set; }
         public string ZipCode { get; set; } = string.Empty;
 
         public string AddressType { get; set; } = string.Empty;

@@ -17,7 +17,7 @@ namespace AnyBuyStore.Controllers
         {
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add([FromBody]PaymentwithStripeCommand command, CancellationToken cancellationToken)
         {

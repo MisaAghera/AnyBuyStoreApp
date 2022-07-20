@@ -1,11 +1,12 @@
 ﻿using AnyBuyStore.Data.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace AnyBuyStore.Core.Handlers.UserHandler.Queries.GetAllUserByRoles
 {
     public class GetAllUserByRolesQuery : IRequest<IEnumerable<UserModel>> {
-        public int RoleId { get; set; }
+        public List<int> RoleId { get; set; }
     }
 
     public class GetAllUsersHandler : IRequestHandler<GetAllUserByRolesQuery, IEnumerable<UserModel>>
@@ -17,10 +18,10 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Queries.GetAllUserByRoles
         }
         public async Task<IEnumerable<UserModel>> Handle(GetAllUserByRolesQuery request, CancellationToken cancellationToken)
         {
-
-            var data = await _context.Users.Join(_context.UserRoles, user => user.Id, userRoles => userRoles.UserId, (user, userRoles) => new { User = user, UserRoles = userRoles }
-                ).Where(userAndroles => userAndroles.UserRoles.RoleId == request.RoleId).ToListAsync();
-
+            
+            var data = _context.Users.Join(_context.UserRoles, user => user.Id, userRoles => userRoles.UserId, (user, userRoles) => new { User = user, UserRoles = userRoles }
+                ).Where(userandroles => request.RoleId.Contains(userandroles.UserRoles.RoleId)).GroupBy(car => car.User.Id).Select(g => g.First()).ToList();
+          
 
             var users = new List<UserModel>();
 
