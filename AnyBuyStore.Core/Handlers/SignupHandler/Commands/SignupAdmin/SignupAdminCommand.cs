@@ -102,11 +102,4 @@ namespace AnyBuyStore.Core.Handlers.SignupAdminHandler.Commands.SignupAdmin
 
         public int? Age { get; set; }
     }
-
-    //public class ResponseModel
-    //{
-    //    public string Status { get; set; }
-    //    public string Message { get; set; }
-
-    //}
 }

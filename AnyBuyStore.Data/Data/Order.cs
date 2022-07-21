@@ -21,9 +21,6 @@ namespace AnyBuyStore.Data.Data
         
         [Column("total_amount")]
         public decimal? TotalAmount { get; set; }
-        
-        [Column("total_discount")]
-        public decimal? TotalDiscount { get; set; }
 
         [Column("created_at")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;

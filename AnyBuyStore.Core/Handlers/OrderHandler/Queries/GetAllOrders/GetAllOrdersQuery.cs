@@ -32,7 +32,6 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllOrders
                         AddressId = vals.AddressId,
                         UserId = vals.UserId,
                         TotalAmount = vals.TotalAmount,
-                        TotalDiscount = vals.TotalDiscount,
                         UpdatedAt = vals.UpdatedAt,
                         UserName = vals.User.UserName
                     });
@@ -61,7 +60,6 @@ namespace AnyBuyStore.Core.Handlers.OrderHandler.Queries.GetAllOrders
 
         public decimal? TotalAmount { get; set; }
 
-        public decimal? TotalDiscount { get; set; }
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
     }

@@ -28,7 +28,6 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct
                 AddressId = command.In.AddressId,
                 UserId = command.In.UserId,
                 TotalAmount = command.In.TotalAmount,
-                TotalDiscount = command.In.TotalDiscount,
             };
 
             await _context.AddAsync(addData, cancellationToken).ConfigureAwait(false);
@@ -46,7 +45,6 @@ namespace AnyBuyStore.Core.Handlers.ProductHandler.Commands.CreateProduct
 
         public decimal? TotalAmount { get; set; }
 
-        public decimal? TotalDiscount { get; set; }
     }
 
 }

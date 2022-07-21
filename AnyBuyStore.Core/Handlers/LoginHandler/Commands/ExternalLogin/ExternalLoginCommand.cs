@@ -127,7 +127,6 @@ namespace AnyBuyStore.Core.Handlers.LoginHandler.Commands.ExternalLogin
             }
             catch (Exception )
             {
-                //log an exception
                 return null;
             }
         }

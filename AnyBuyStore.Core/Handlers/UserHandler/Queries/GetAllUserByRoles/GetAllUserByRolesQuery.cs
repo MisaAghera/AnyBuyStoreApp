@@ -29,6 +29,7 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Queries.GetAllUserByRoles
 
                 foreach (var user in data)
                 {
+                    var roles = await _context.UserRoles.Join(_context.Roles, userRole => userRole.RoleId, roles => roles.Id, (userRole, roles) => new { UserRole = userRole, Roles = roles }).Where(userAndroles => userAndroles.UserRole.UserId == user.UserRoles.UserId).Select(a => a.Roles.Name).ToListAsync();
                     users.Add(new UserModel()
                     {
                         Id = user.User.Id,
@@ -38,6 +39,7 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Queries.GetAllUserByRoles
                         Age = user.User.Age,
                         Gender = user.User.Gender,
                         PhoneNumber = user.User.PhoneNumber,
+                        Roles = roles
                     });
                 }
 
@@ -49,6 +51,9 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Queries.GetAllUserByRoles
     {
         public int Id { get; set; }
         public int Role { get; set; }
+
+        public List<string>? Roles { get; set; }
+
         public string? PhoneNumber { get; set; }
 
         public string UserName { get; set; } = string.Empty;

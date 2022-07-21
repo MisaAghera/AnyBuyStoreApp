@@ -4,6 +4,7 @@ using AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginSellerCommand;
 using AnyBuyStore.Core.Handlers.LoginHandler.Commands.LoginUserCommand;
 using AnyBuyStore.Core.Handlers.LoginHandler.Commands.refreshToken;
 using AnyBuyStore.Core.Handlers.SignupAdminHandler.Commands.SignupAdmin;
+using AnyBuyStore.Core.Handlers.SignupHandler.Commands.AddRoles;
 using AnyBuyStore.Core.Handlers.SignupHandler.Commands.changePassword;
 using AnyBuyStore.Core.Handlers.SignupHandler.Commands.Signup;
 using AnyBuyStore.Core.Handlers.SignupHandler.Commands.SignupSeller;
@@ -110,5 +111,19 @@ namespace AnyBuyStore.Controllers
             return Ok(result);
         }
 
+
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> addRole(AddRoleCommand command, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(command, cancellationToken);
+
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404));
+            }
+            return Ok(result);
+        }
     }
 }

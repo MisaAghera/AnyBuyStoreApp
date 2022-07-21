@@ -30,7 +30,6 @@ namespace AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.UpdateProduc
             UpdateData.AddressId = command.In.AddressId;
             UpdateData.UserId = command.In.UserId;
             UpdateData.TotalAmount = command.In.TotalAmount;
-            UpdateData.TotalDiscount = command.In.TotalDiscount;
             UpdateData.UpdatedAt = DateTime.Now;
 
             await _context.SaveChangesAsync();
@@ -39,7 +38,6 @@ namespace AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.UpdateProduc
     }
     public class UpdateOrderModel
     {
-
         public int Id { get; set; }
 
         public int AddressId { get; set; }
@@ -48,7 +46,6 @@ namespace AnyBuyStore.Core.Handlers.ProductCategoryHandler.Commands.UpdateProduc
 
         public decimal? TotalAmount { get; set; }
 
-        public decimal? TotalDiscount { get; set; }
     }
 
 }

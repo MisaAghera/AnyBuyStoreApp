@@ -20,6 +20,7 @@ namespace AnyBuyStore.Core.Handlers.UserHandler.Commands.RemoveUserRole
             }
             public async Task<int> Handle(removeUserRole command, CancellationToken cancellationToken)
             {
+
                 var deleteData = await _context.UserRoles.Where(a => a.UserId == command.UserId && a.RoleId == command.RoleId).FirstOrDefaultAsync();
 
                 _context.UserRoles.Remove(deleteData);

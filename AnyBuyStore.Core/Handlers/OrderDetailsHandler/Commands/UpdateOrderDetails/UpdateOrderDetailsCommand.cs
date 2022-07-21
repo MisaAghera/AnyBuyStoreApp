@@ -24,7 +24,20 @@ namespace AnyBuyStore.Core.Handlers.ProductSubCategoryHandler.Commands.UpdatePro
         public async Task<int> Handle(UpdateOrderDetailsCommand command, CancellationToken cancellationToken)
         {
             var UpdateData = _context.OrderDetails.Where(a => a.Id == command.In.Id).FirstOrDefault();
-           
+
+            var Product = _context.Product.Join(_context.OrderDetails, product => product.Id, orderDetails => orderDetails.ProductId, (product, orderDetails) => new { Product = product, OrderDetails = orderDetails }
+           ).Where(productOrder => productOrder.OrderDetails.Id == command.In.Id).FirstOrDefault();
+
+            var ProductQtyUpdate = UpdateData.Quantity - command.In.Quantity;
+            
+            Product.Product.Quantity = Product.Product.Quantity + ProductQtyUpdate;
+            await _context.SaveChangesAsync();
+
+            var TotalAmountUpdate = Product.Product.Price * (UpdateData.Quantity - command.In.Quantity);
+            var Order = _context.Order.Where(a => a.Id == UpdateData.OrderId).FirstOrDefault();
+            Order.TotalAmount = Order.TotalAmount + TotalAmountUpdate;
+            await _context.SaveChangesAsync();
+
                 UpdateData.Id = command.In.Id;
                 UpdateData.ProductId = command.In.ProductId;
                 UpdateData.OrderId = command.In.OrderId;

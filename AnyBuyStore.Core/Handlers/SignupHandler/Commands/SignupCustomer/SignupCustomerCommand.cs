@@ -47,19 +47,10 @@ namespace AnyBuyStore.Core.Handlers.SignupHandler.Commands.Signup
                 Age = command.In.Age,
             };
             var result = await _userManager.CreateAsync(user, command.In.Password);
-            //if (!await _roleManager.RoleExistsAsync(UserRoles.Customer))
-            //    await _roleManager.CreateAsync(new IdentityRole<int>(UserRoles.Customer));
-
-            //if (await _roleManager.RoleExistsAsync(UserRoles.Customer))
-            //{
-            //    await _userManager.AddToRoleAsync(user, UserRoles.Customer);
-            //}
-
+           
             if (!result.Succeeded)
             {
                 new ApiResponse(500);
-
-                //return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
             }
             return result;
 
@@ -84,11 +75,4 @@ namespace AnyBuyStore.Core.Handlers.SignupHandler.Commands.Signup
 
         public int? Age { get; set; }
     }
-
-    //public class ResponseModel
-    //{
-    //    public string Status { get; set; }
-    //    public string Message { get; set; }
-
-    //}
 }
