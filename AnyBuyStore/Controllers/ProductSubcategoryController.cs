@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AnyBuyStore.Controllers
 {
-    
     public class ProductSubcategoryController : BaseApiController
     {
         public ProductSubcategoryController(ILogger<BaseApiController> logger, IMediator mediator) : base(logger, mediator)

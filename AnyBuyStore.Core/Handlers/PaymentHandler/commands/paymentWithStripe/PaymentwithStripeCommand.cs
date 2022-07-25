@@ -46,12 +46,17 @@ namespace AnyBuyStore.Core.Handlers.PaymentHandler.commands.paymentWithStripe
                 Customer = customer.Id,
                 PaymentMethodTypes = new List<string> { "card"},
                 Metadata = new Dictionary<string, string>{ {"OrderId",command.In.OrderId.ToString()}},
+    
+            };
+            var confirmOptions = new PaymentIntentConfirmOptions
+            {
+                PaymentMethod = "pm_card_visa",
             };
 
             var service = new PaymentIntentService();
             var paymentIntent = service.Create(options);
-
-            if (paymentIntent != null)
+            var paymentConfirm = service.Confirm(paymentIntent.Id,confirmOptions);
+            if (paymentConfirm != null)
             {
                 return true;
             }

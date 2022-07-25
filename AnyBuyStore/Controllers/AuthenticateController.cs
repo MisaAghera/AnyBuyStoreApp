@@ -118,7 +118,7 @@ namespace AnyBuyStore.Controllers
         public async Task<IActionResult> addRole(AddRoleCommand command, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(command, cancellationToken);
-
+            
             if (result == null)
             {
                 return NotFound(new ApiResponse(404));
