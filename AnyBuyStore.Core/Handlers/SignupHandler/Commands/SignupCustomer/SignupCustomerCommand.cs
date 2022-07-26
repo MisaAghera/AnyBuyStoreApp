@@ -52,6 +52,18 @@ namespace AnyBuyStore.Core.Handlers.SignupHandler.Commands.Signup
             {
                 new ApiResponse(500);
             }
+  
+
+            if (!await _roleManager.RoleExistsAsync(UserRoles.Customer))
+                await _roleManager.CreateAsync(new IdentityRole<int>(UserRoles.Customer));
+
+
+
+            if (await _roleManager.RoleExistsAsync(UserRoles.Customer))
+            {
+                await _userManager.AddToRoleAsync(user, UserRoles.Customer);
+            }
+
             return result;
 
         }
